@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 //Start app
 import start from './scripts/start';
 
-
+//chek if user is already loggedIn if yes will return same session else return a new session 
 start.checkSession();
 
 

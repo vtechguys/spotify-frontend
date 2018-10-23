@@ -8,7 +8,7 @@ const LOCAL_STORAGE = {
     },
     get:function(key){
         console.log("LocalStorage getItem ",key)
-        localStorage.getItem(key);
+        return localStorage.getItem(key);
     },
     clear:function(){
         localStorage.clear();

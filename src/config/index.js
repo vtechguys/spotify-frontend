@@ -1,4 +1,4 @@
 const config = {
-    'BASE_URL':'https://immense-badlands-53394.herokuapp.com/'
+    'BASE_URL':'http://localhost:5500'
 }
 export default config;
