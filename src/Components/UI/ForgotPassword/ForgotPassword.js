@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import './ForgotPassword.css'
 import {Link} from 'react-router-dom'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
@@ -7,7 +8,7 @@ class ForgotPassword extends Component{
 
     render(){
         return(
-            <div>
+            <div className='ForgotPassword'>
             
             <h1>Forgot Password ?</h1>
             <div className='row'>

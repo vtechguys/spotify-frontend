@@ -1,4 +1,5 @@
  import React,{Component} from 'react'
+ import './Register.css'
  import {Link} from 'react-router-dom'
  import Input from '../Input/Input'
  import Button from '../Button/Button'
@@ -8,7 +9,7 @@
     render(){
 
         return(
-            <div className='col-md-10'>
+            <div className='col-md-10 Register'>
                 <h1>Register</h1>
                 <div className='row'>
                 <div className='float-left container' style={{margin:5, fontSize:16}}><Link to='/'>Back to Login</Link></div>
