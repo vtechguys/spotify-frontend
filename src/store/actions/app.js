@@ -5,7 +5,9 @@ import {
 import API from '../../axiosRoot';
 import storage from '../../utils/localStorage';
 
-
+import { signInSync } from './auth'
+//API_URLS REGISTERED
+import { apiUrls } from '../../config/registeredUrls';
 
 const webIndexSync = (token,message,isLogedIn) => {
     console.log("Fired");
@@ -20,11 +22,26 @@ const webIndexSync = (token,message,isLogedIn) => {
 
     }
 }
-
+// const multipleStoreUpdate = (dispatch,...actionMethods) => {
+//     var actions =[];
+//     actionMethods.forEach(action=>{
+//         actions.push(
+//             dispatch(action)
+//         )
+//     })
+//     console.log("Promising for",actionMethods)
+//     Promise.all([
+//         dispatch( actionMethods[0] ),
+//         dispatch( actionMethods[1] )
+//     ]).then(success=>{
+//         console.log("successfully done  many actions");
+//     })
+// }
 export const webIndexAsync = (token) =>{
    return (dispatch,getState) => {
+       console.log("\nthis is webIndexAsync")
         API
-        .post(WEB_INDEX,{})
+        .post(apiUrls.WEB_INDEX,{})
         .then(success=>{
             let data = success.data;
             if(data.code===200 && data.success===true){
@@ -32,22 +49,18 @@ export const webIndexAsync = (token) =>{
                 let message = data.message;
                 let isLogedIn = true;
                 let profile = data.data.profile
-                let authState = {
-                    "role": "",
-                    "email": "",
-                    "userId": "",
-                    "name": "",
-                    "sessionId": "",
-                    "uuid": "",
-                    "createdAt": ""
-                }
-                dispatch(webIndexSync(token,message,isLogedIn));
+                dispatch( signInSync(profile) );
+                console.log("State Now 0",getState());
+                dispatch( webIndexSync(token,message,isLogedIn) );
+                console.log("State Now 1",getState())
+                console.log("many action cared")
             }
             else{
                 let message = data.message;
                 let token = "checkingAPI";
                 let isLogedIn = false;
-                dispatch(webIndexSync(token,message,isLogedIn));
+                console.log("token not found")
+                dispatch(webIndexSync( token,message,isLogedIn));
             }
         })
         .catch(error=>{
