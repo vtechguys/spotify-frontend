@@ -7,13 +7,14 @@ import storage from '../../utils/localStorage';
 
 
 
-const webIndexSync = (token,message) => {
+const webIndexSync = (token,message,isLogedIn) => {
     console.log("Fired");
     return {
         type:WEB_INDEX,
         payload:{
             message:message,
-            token:token
+            token:token,
+            isLogedIn:isLogedIn
         }
         
 
@@ -21,7 +22,7 @@ const webIndexSync = (token,message) => {
 }
 
 export const webIndexAsync = (token) =>{
-   return dispatch => {
+   return (dispatch,getState) => {
         API
         .post(WEB_INDEX,{})
         .then(success=>{
@@ -30,6 +31,16 @@ export const webIndexAsync = (token) =>{
                 storage.store("token",data.data.profile.sessionId);
                 let message = data.message;
                 let isLogedIn = true;
+                let profile = data.data.profile
+                let authState = {
+                    "role": "",
+                    "email": "",
+                    "userId": "",
+                    "name": "",
+                    "sessionId": "",
+                    "uuid": "",
+                    "createdAt": ""
+                }
                 dispatch(webIndexSync(token,message,isLogedIn));
             }
             else{
