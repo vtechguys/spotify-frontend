@@ -7,27 +7,22 @@ const instance = axios.create({
     headers:{
         'Content-Type':'application/json'
     },
-    timeout:60000//1 Min max time out for now
+    timeout:10000//10s max time out for now
 });
 
 
 instance.interceptors.request.use(config=>{
-    console.log("Trying to config middleware/interceptors")
-    const userData = storage.get('profile');
-    let profile = null;
-    try{
-        profile = JSON.parse(userData);
-        if(profile && profile.sessionId && typeof(profile)==="object"){
-            config.headers['Authorization'] = 'token '  + profile.sessionId;
-        }
+    console.log("Trying to config middleware/interceptors ",config)
+    const token = storage.get('token');
+    
+    if(token){
+        config.headers['Authorization'] = 'token '  + token;
+    }
         
-        console.log("request middleware/intercepters configurations",config);
      
-    }
-    catch(exp){
-        console.log("expception parsing JSON",exp);
-        
-    }
+    
+    console.log("request middleware/intercepters configurations",config);
+
     return config;
 },error=>{
     console.log("axios request interceptor error ",error);

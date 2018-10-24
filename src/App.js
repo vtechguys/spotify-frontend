@@ -2,27 +2,58 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { connect } from 'react-redux';
+
+//Import actions creators
+import {
+  webIndexAsync
+} from './store/actions/app';
+
+
+
+//import storage to retive token
+import storage from './utils/localStorage';
 class App extends Component {
+  
+
+  checkSession = () =>{
+    //Will check if previous session exist.
+    var token = storage.get("token");
+    if(token){
+      this.props.webSession(token);
+      console.log("Instant called")
+    }
+    else{
+      //No token. need to login...redirect to login page
+      console.log("No token.Need to login...redirect to login page")
+    }
+  }
+
+  componentWillMount(){
+    //???should check for online here??
+  }
+  componentDidMount(){
+      this.checkSession();//check session at begining of app.
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <h1>App</h1>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) =>{
+  return {
+    isLogedIn:state.app.isLogedIn
+
+  }
+}
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    webSession: (token) => dispatch(  webIndexAsync(token) ) 
+
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);

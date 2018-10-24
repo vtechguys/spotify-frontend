@@ -1,13 +1,18 @@
 
 const LOCAL_STORAGE = {
     store:function(key,value){
-        localStorage.setItem(key,value);
+        if(typeof(value) === "object"){
+            let valueJsonString = JSON.stringify(value);
+            localStorage.setItem(key,valueJsonString);
+        }
+        else{
+            localStorage.setItem(key,value);
+        }
     },
     delete:function(key){
         localStorage.removeItem(key);
     },
     get:function(key){
-        console.log("LocalStorage getItem ",key)
         return localStorage.getItem(key);
     },
     clear:function(){
