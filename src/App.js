@@ -42,22 +42,7 @@ class App extends Component {
 
   render() {
     return (
-<<<<<<< HEAD
       <h1>App</h1>
-=======
-      
-      <div className="App container">
-      <div className='row justify-content-center'>
-      <Router>
-      <Switch>
-        <Route exact path='/' component={Login}></Route>
-        <Route exact path='/register' component={Register}></Route>
-        <Route exact path='/forgotPassword' component={ForgotPassword}></Route>
-        </Switch>
-        </Router>
-        </div>
-      </div>
->>>>>>> 71f2b6c5c7b35c8338218be1f17b95d94463d33f
     );
   }
 }
