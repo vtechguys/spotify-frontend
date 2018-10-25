@@ -13,7 +13,8 @@ import {
   webIndexAsync
 } from './store/actions/app';
 
-
+//import Layout
+import Layout from './Containers/Layout/Layout';
 
 //import storage to retive token
 import storage from './utils/localStorage';
@@ -42,7 +43,7 @@ class App extends Component {
 
   render() {
     return (
-      <h1>App</h1>
+      <Layout appName="Questioner" ></Layout>
     );
   }
 }
