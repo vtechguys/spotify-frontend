@@ -22,15 +22,11 @@ const reducer = (state=initialState, action) => {
                 message:action.payload.message,
                 isLogedIn:action.payload.isLogedIn
             }
-            return {
-                ...state,
-                token:action.payload.token,
-                message:action.payload.message,
-                isLogedIn:action.payload.isLogedIn
-
-            }
+            
+            return updateObj(state,updateObject)
+            
         default:
-            return initialState;
+            return state;
     }
 }
 export default reducer;

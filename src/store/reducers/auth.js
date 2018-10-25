@@ -5,7 +5,7 @@ import {
 } from '../actions/actionTypes';
 
 
-
+import { updateObj } from '../utility';
 
 const initialState = {
     
@@ -19,10 +19,14 @@ const initialState = {
     
 };
 const reducer = (state=initialState,action)=>{
+    console.log("inside ahudas");
     switch(action.type){
         case SIGN_IN:
-            return {
-                ...state,
+            return updateObj(
+                state
+                ,
+                {
+                
                 "role": action.payload.role,
                 "email": action.payload.email,
                 "userId": action.payload.userId,
@@ -30,10 +34,12 @@ const reducer = (state=initialState,action)=>{
                 "sessionId": action.payload.sessionId,
                 "uuid": action.payload.uuid,
                 "createdAt": action.payload.createdAt
-            }
+                }
+            )
         
         default:
-            return initialState
+        console.log("ashu");
+            return state;
         
     }
 }

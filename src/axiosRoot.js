@@ -12,11 +12,11 @@ const instance = axios.create({
 
 
 instance.interceptors.request.use(config=>{
-    console.log("Trying to config middleware/interceptors ",config)
+    console.log("Trying to config interceptors ",config)
     const token = storage.get('token');
     
     if(token){
-        config.headers['Authorization'] = 'token '  + token;
+        config.headers.common['Authorization'] = 'token '  + token;
     }
         
      

@@ -10,7 +10,6 @@ import { signInSync } from './auth'
 import { apiUrls } from '../../config/registeredUrls';
 
 const webIndexSync = (token,message,isLogedIn) => {
-    console.log("Fired");
     return {
         type:WEB_INDEX,
         payload:{
@@ -23,12 +22,12 @@ const webIndexSync = (token,message,isLogedIn) => {
     }
 }
 // const multipleStoreUpdate = (dispatch,...actionMethods) => {
-//     var actions =[];
-//     actionMethods.forEach(action=>{
-//         actions.push(
-//             dispatch(action)
-//         )
-//     })
+//     // var actions =[];
+//     // actionMethods.forEach(action=>{
+//     //     actions.push(
+//     //         dispatch(action)
+//     //     )
+//     // })
 //     console.log("Promising for",actionMethods)
 //     Promise.all([
 //         dispatch( actionMethods[0] ),
@@ -39,7 +38,6 @@ const webIndexSync = (token,message,isLogedIn) => {
 // }
 export const webIndexAsync = (token) =>{
    return (dispatch,getState) => {
-       console.log("\nthis is webIndexAsync")
         API
         .post(apiUrls.WEB_INDEX,{})
         .then(success=>{
@@ -50,16 +48,12 @@ export const webIndexAsync = (token) =>{
                 let isLogedIn = true;
                 let profile = data.data.profile
                 dispatch( signInSync(profile) );
-                console.log("State Now 0",getState());
                 dispatch( webIndexSync(token,message,isLogedIn) );
-                console.log("State Now 1",getState())
-                console.log("many action cared")
             }
             else{
                 let message = data.message;
-                let token = "checkingAPI";
+                let token = "";
                 let isLogedIn = false;
-                console.log("token not found")
                 dispatch(webIndexSync( token,message,isLogedIn));
             }
         })
