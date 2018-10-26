@@ -1,10 +1,11 @@
-import React , { Component } from 'react';
+import React , { Component,Fragment } from 'react';
+import {BrowserRouter as Router} from 'react-router-dom'
 import { connect } from 'react-redux';
 
 
 
 //import Aux 
-import Aux from '../../hoc/Aux';
+// import Aux from '../../hoc/Aux';
 
 
 
@@ -23,8 +24,8 @@ class Layout extends Component{
     render (){
 
         return (
-            <Aux>
-                
+            <Fragment>
+              <Router>  
                 <Nav 
                     appName = { this.props.appName }
                     user = { this.props.user }
@@ -32,8 +33,8 @@ class Layout extends Component{
                 ></Nav>
                 <Body></Body>
                 <Footer></Footer>
-
-            </Aux>
+            </Router>
+            </Fragment>
         )
     }
 }

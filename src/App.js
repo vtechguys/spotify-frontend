@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-// import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 // import Login from './Components/UI/Login/Login'
 // import Register from './Components/UI/Register/Register'
 // import ForgotPassword from './Components/UI/ForgotPassword/ForgotPassword'
 import './App.css';
+
 
 import { connect } from 'react-redux';
 
@@ -43,7 +43,8 @@ class App extends Component {
 
   render() {
     return (
-      <Layout appName="Questioner" ></Layout>
+      <Layout appName="Questioner" >
+      </Layout>
     );
   }
 }
