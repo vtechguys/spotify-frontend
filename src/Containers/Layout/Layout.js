@@ -20,6 +20,8 @@ import Footer from './Footer/Footer';
 ///Layout
 class Layout extends Component{
 
+
+
     render (){
 
         return (
@@ -29,9 +31,10 @@ class Layout extends Component{
                     appName = { this.props.appName }
                     user = { this.props.user }
 
-                ></Nav>
-                <Body></Body>
-                <Footer></Footer>
+                >
+                </Nav>
+                {/* <Body></Body>
+                <Footer></Footer> */}
 
             </Aux>
         )
@@ -40,14 +43,14 @@ class Layout extends Component{
 
 const mapStateToProps = (state) => {
 
-    var NavProps = { 
+    var userProps = { 
         ...state.auth, 
         'isLoggedIn':state.app.isLoggedIn
     }
 
     return {
 
-        user: NavProps,
+        user: userProps,
 
 
     }
