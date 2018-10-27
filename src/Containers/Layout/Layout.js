@@ -17,6 +17,10 @@ import Body from './Body/Body';
 //Footer
 import Footer from './Footer/Footer';
 
+import Spinner from '../../Components/UI/Spinner/Spinner';
+
+
+
 ///Layout
 class Layout extends Component{
 
@@ -24,33 +28,37 @@ class Layout extends Component{
 
     render (){
 
-        return (
-            <Aux>
-                
-                <Nav 
-                    appName = { this.props.appName }
-                    user = { this.props.user }
+        let appJSX = (
+            <Spinner></Spinner>
+        );
+        if(!this.props.app.loadingState){
+            appJSX=(
+                <Aux>
+                    <Nav 
 
-                >
-                </Nav>
-                {/* <Body></Body>
-                <Footer></Footer> */}
+                        appName = { this.props.appName }
+                        auth = { this.props.auth }
+                        app = { this.props.app }
 
-            </Aux>
-        )
+                    >
+                    </Nav>
+                </Aux>
+            )
+        }
+
+
+        return appJSX
     }
 }
 
 const mapStateToProps = (state) => {
 
-    var userProps = { 
-        ...state.auth, 
-        'isLoggedIn':state.app.isLoggedIn
-    }
+    
 
     return {
 
-        user: userProps,
+        app: state.app,
+        auth: state.auth 
 
 
     }

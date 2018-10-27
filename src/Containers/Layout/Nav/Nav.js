@@ -39,40 +39,16 @@ class Nav extends Component{
             }
         })
     }
-    searching = (event)=>{
-        let text = event.target.value;
-        if(text && text.trim().length>0){
-
-            this.setState({
-                searchFor:text
-            })
-
-        }
-        else{
-            return;
-        }
-    }
-    searchType = (event) =>{
-        this.setState({
-            searchType:event.target.value
-        })
-    }
-    searchSubmit = () =>{
+  
+    searchSubmit = (type,searchText) =>{
+        console.log(type,searchText);
+       
         
-        console.log("Searching ");
-        let searchFor = this.state.searchFor;
-        let serachType = this.state.searchType;
-        if(searchFor && searchFor.trim().length>0){
-            this.props.searchIt(serachType,searchFor);
-        }
-        else{
-            return;
-        }
-
 
     }
 
-    clicked = (action) =>{
+    clicked = (e,action) =>{
+        console.log("UserActions",action)
         switch(action.type){
             case 'LOGOUT':
                 this.props.logout()
@@ -92,13 +68,10 @@ class Nav extends Component{
                         name = { config.COMPANY_NAME }
                         logo = { config.COMPANY_LOGO }
                         info = { config.COMPANY_INFO }
-                        redirecter = { this.props.redirecter }
                     ></CompanyInfo>
                 </div>
                 <div className="col-md-8">
                     <SearchBar 
-                        searchType = { this.searchType }
-                        searching={ this.searching }
                         onSumbit = { this.searchSubmit }
                     ></SearchBar>
                 </div>
@@ -119,16 +92,11 @@ class Nav extends Component{
     }
 }
 
-const mapStateToProps = (state) =>{
-    return {
-        auth:state.auth,
-        app:state.auth
-    }
-}
+
 const mapStateToDispatch = (dispatch) =>{
     return {
         logout:()=>dispatch( signOutAsync() ),
         //searchIt:( type, data )=>dispatch( search( type, data ) )
     }
 }
-export default connect(mapStateToProps, mapStateToDispatch)(Nav);
+export default connect(null, mapStateToDispatch)(Nav);
