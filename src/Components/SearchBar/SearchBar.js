@@ -30,23 +30,27 @@ export class SearchBar extends React.Component{
     render(){
         return (
             <Auxilary>
-                <select ref="searchOption">
+            <div className='row'>
+            <div className='col-md-2' style={{paddingTop : 0}}>
+                <select ref="searchOption" className="custom-select">
                     <option value="ALL">All</option>
                     <option value="USER">User</option>
                     <option value="COURSES">Courses</option>
                     <option value="GROUP">Group</option>
                 </select>
-                <div>
+                </div>
+            <div className='col-md-8'>
                     <Input onChange={this.searching}
                         id={"search"}
                     >
                         Search
                     </Input>       
                 </div>
-                <div>
-                    <Button clicked={this.onSumbit}>
-                        <i className="fa fa-search"></i>
+                <div className='col-md-2'>
+                    <Button clicked={this.onSumbit} className="success">
+                        Search
                     </Button>
+                </div>
                 </div>
             </Auxilary>
     

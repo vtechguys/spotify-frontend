@@ -33,7 +33,7 @@ export const UserInfo = (props) =>{
 
         if(props.isVisibleDropDown){
             dropDownListJSX=(
-                <div className="DropDownListItem">
+                <div className="col-md-12" style={{position: "absolute", marginTop:10,padding : 5,left:'-15%',border :'1px solid black' ,backgroundColor :'white',borderRadius: 5}}>
                     <DropDown dropDownList = {dropDownList} clicked={props.clicked}>
     
                     </DropDown>
