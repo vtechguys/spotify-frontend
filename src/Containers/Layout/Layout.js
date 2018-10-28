@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 
 
-//import Aux 
-import Aux from '../../hoc/Aux';
+//import Auxilary 
+import Auxilary from '../../hoc/Auxilary';
 
 
 
@@ -32,7 +32,7 @@ class Layout extends Component{
         );
         if(!this.props.app.loadingState){
             appJSX=(
-                <Aux>
+                <Auxilary>
                     <Nav 
                         companyName = {this.props.companyName}
                         companyLogo = {this.props.companyLogo}
@@ -58,7 +58,7 @@ class Layout extends Component{
                     >
 
                     </Body>
-                </Aux>
+                </Auxilary>
             )
         }
 

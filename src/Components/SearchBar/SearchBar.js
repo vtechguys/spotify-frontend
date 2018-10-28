@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Aux from '../../hoc/Aux'
+import Auxilary from '../../hoc/Auxilary'
 import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button';
 export class SearchBar extends React.Component{
@@ -29,7 +29,7 @@ export class SearchBar extends React.Component{
 
     render(){
         return (
-            <Aux>
+            <Auxilary>
                 <select ref="searchOption">
                     <option value="ALL">All</option>
                     <option value="USER">User</option>
@@ -48,7 +48,7 @@ export class SearchBar extends React.Component{
                         <i className="fa fa-search"></i>
                     </Button>
                 </div>
-            </Aux>
+            </Auxilary>
     
         )
     }
