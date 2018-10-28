@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 //Import actions creators
 import {
-  webIndexAsync
+  webIndexAsync,webIndexSync
 } from './store/actions/app';
 
 //import Layout
@@ -18,6 +18,12 @@ import Layout from './Containers/Layout/Layout';
 
 //import storage to retive token
 import storage from './utils/localStorage';
+
+//Router
+import { BrowserRouter } from 'react-router-dom';
+
+import config from './config';
+
 class App extends Component {
   
 
@@ -25,10 +31,10 @@ class App extends Component {
     //Will check if previous session exist.
     var token = storage.get("token");
     if(token){
-      this.props.webSession(token);
-      console.log("Instant called")
+      this.props.webSessionAsync(token);
     }
     else{
+      this.props.webSessionSync("","No token found login again",false,false);
       //No token. need to login...redirect to login page
       console.log("No token.Need to login...redirect to login page")
     }
@@ -43,8 +49,19 @@ class App extends Component {
 
   render() {
     return (
-      <Layout appName="Questioner" >
-      </Layout>
+      <BrowserRouter>
+
+            <Layout 
+            appName={config.APP_NAME}
+            appLogo = {config.APP_LOGO} 
+            companyInfo={config.COMPANY_INFO} 
+            companyLogo={config.COMPANY_LOGO} 
+            companyName={config.COMPANY_NAME}
+          >
+          </Layout>
+
+      </BrowserRouter>
+      
     );
   }
 }
@@ -57,7 +74,8 @@ const mapStateToProps = (state) =>{
 }
 const mapDispatchToProps = (dispatch) =>{
   return {
-    webSession: (token) => dispatch(  webIndexAsync(token) ) 
+    webSessionAsync: (token) => dispatch(  webIndexAsync(token) ),
+    webSessionSync: (token,message,isLogedIn,loadngState)=>dispatch( webIndexSync(token,message,isLogedIn,loadngState) )
 
   }
 }

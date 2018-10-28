@@ -59,7 +59,7 @@ export const signInAsync = (profile) => {
 
 //Redux is sync so redux thunk come into play it stops dispatch for 
 //a while till you explicitly dispatch it again.So Async code can be performed here
-export const signOutSync = () =>{
+const signOutSync = () =>{
     return {
         type: SIGN_OUT
     }
@@ -79,9 +79,11 @@ export const signOutAsync = () => {
             if(data.code===200 && data.success===true){
                 storage.clear();
                 dispatch( signOutSync() );
+                dispatch( { type:'RESTORE', payload: { message: data.message } } );
             }
             else{
-
+                dispatch( {type:'UNSUCCESSFULL',payload: { message: data.message } })
+                console.log("Else case",success);
             }
         })
         .catch(error=>{
