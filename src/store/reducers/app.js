@@ -9,7 +9,8 @@ import { updateObj } from '../utility';
 const initialState = {
     token:"",
     message:"",
-    isLogedIn:false
+    isLogedIn:false,
+    loadingState:true
 }
 
 
@@ -20,7 +21,8 @@ const reducer = (state=initialState, action) => {
             let updateObject = {
                 token:action.payload.token,
                 message:action.payload.message,
-                isLogedIn:action.payload.isLogedIn
+                isLogedIn:action.payload.isLogedIn,
+                loadingState:action.payload.loadingState
             }
             
             return updateObj(state,updateObject)

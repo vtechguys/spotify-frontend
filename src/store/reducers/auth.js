@@ -36,7 +36,18 @@ const reducer = (state=initialState,action)=>{
                 "createdAt": action.payload.createdAt
                 }
             )
-        
+        case SIGN_OUT:
+                return {
+    
+                    "role": "",
+                    "email": "",
+                    "userId": "",
+                    "name": "",
+                    "sessionId": "",
+                    "uuid": "",
+                    "createdAt": ""
+                    
+                }
         default:
         console.log("ashu");
             return state;

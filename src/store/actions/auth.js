@@ -1,5 +1,6 @@
 import {
-    SIGN_IN
+    SIGN_IN,
+    SIGN_OUT
 } from './actionTypes';
 
 //API ROOT CALL
@@ -56,3 +57,37 @@ export const signInAsync = (profile) => {
 }
 
 
+//Redux is sync so redux thunk come into play it stops dispatch for 
+//a while till you explicitly dispatch it again.So Async code can be performed here
+export const signOutSync = () =>{
+    return {
+        type: SIGN_OUT
+    }
+}
+//Redux thunk for aync operation
+export const signOutAsync = () => {
+
+    return dispatch => {
+
+        const signOutObj = {};
+        
+
+        API
+        .post(apiUrls.SIGN_OUT,signOutObj)
+        .then(success=>{
+            var data = success.data;
+            if(data.code===200 && data.success===true){
+                storage.clear();
+                dispatch( signOutSync() );
+            }
+            else{
+
+            }
+        })
+        .catch(error=>{
+            console.log("Error while requesting to ",apiUrls.SIGN_OUT,"error",error);
+        })
+
+
+    }
+}

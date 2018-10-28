@@ -9,13 +9,14 @@ import { signInSync } from './auth'
 //API_URLS REGISTERED
 import { apiUrls } from '../../config/registeredUrls';
 
-const webIndexSync = (token,message,isLogedIn) => {
+const webIndexSync = (token,message,isLogedIn,loadingState) => {
     return {
         type:WEB_INDEX,
         payload:{
             message:message,
             token:token,
-            isLogedIn:isLogedIn
+            isLogedIn:isLogedIn,
+            loadingState:loadingState
         }
         
 
@@ -48,13 +49,13 @@ export const webIndexAsync = (token) =>{
                 let isLogedIn = true;
                 let profile = data.data.profile
                 dispatch( signInSync(profile) );
-                dispatch( webIndexSync(token,message,isLogedIn) );
+                dispatch( webIndexSync(token,message,isLogedIn,false) );
             }
             else{
                 let message = data.message;
                 let token = "";
                 let isLogedIn = false;
-                dispatch(webIndexSync( token,message,isLogedIn));
+                dispatch(webIndexSync( token,message,isLogedIn,false));
             }
         })
         .catch(error=>{
