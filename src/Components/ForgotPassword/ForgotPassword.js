@@ -1,18 +1,17 @@
-import React,{Component} from 'react'
+import React from 'react'
 import './ForgotPassword.css'
-import {Link} from 'react-router-dom'
-import Input from '../Input/Input'
-import Button from '../Button/Button'
+import Input from '../UI/Input/Input'
+import Button from '../UI/Button/Button'
 
-class ForgotPassword extends Component{
+export const ForgotPassword =()=>{
 
-    render(){
+
         return(
             <div className='ForgotPassword'>
             
             <h1>Forgot Password ?</h1>
             <div className='row'>
-            <div className='container float-left' style={{margin:5}}><Link to='/'>Back to Login</Link></div>
+            <div className='container float-left' style={{margin:5}}></div>
             <Input type='email' id='forgotPassword' >Email</Input>
             <Button type='submit' className='primary'>Submit</Button>
             </div>
@@ -20,7 +19,7 @@ class ForgotPassword extends Component{
         )
             
         
-    }
+   
 }
 
-export default ForgotPassword
+  

@@ -1,12 +1,12 @@
  import React,{Component} from 'react'
  import './Register.css'
  import {Link} from 'react-router-dom'
- import Input from '../Input/Input'
- import Button from '../Button/Button'
+ import Input from '../UI/Input/Input'
+ import Button from '../UI/Button/Button'
 
- class Register extends Component{
+ export const Register =()=>{
 
-    render(){
+ 
 
         return(
             <div className='col-md-10 Register'>
@@ -25,8 +25,6 @@
             </div>
 
         )
-    }
+  
 
  }
-
- export default Register

@@ -19,7 +19,8 @@ import Layout from './Containers/Layout/Layout';
 //import storage to retive token
 import storage from './utils/localStorage';
 
-
+//Router
+import { BrowserRouter } from 'react-router-dom';
 
 import config from './config';
 
@@ -48,14 +49,19 @@ class App extends Component {
 
   render() {
     return (
-      <Layout 
-        appName={config.APP_NAME}
-        appLogo = {config.APP_LOGO} 
-        companyInfo={config.COMPANY_INFO} 
-        companyLogo={config.COMPANY_LOGO} 
-        companyName={config.COMPANY_NAME}
-      >
-      </Layout>
+      <BrowserRouter>
+
+            <Layout 
+            appName={config.APP_NAME}
+            appLogo = {config.APP_LOGO} 
+            companyInfo={config.COMPANY_INFO} 
+            companyLogo={config.COMPANY_LOGO} 
+            companyName={config.COMPANY_NAME}
+          >
+          </Layout>
+
+      </BrowserRouter>
+      
     );
   }
 }
