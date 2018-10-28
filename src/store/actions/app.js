@@ -9,7 +9,9 @@ import { signInSync } from './auth'
 //API_URLS REGISTERED
 import { apiUrls } from '../../config/registeredUrls';
 
-const webIndexSync = (token,message,isLogedIn,loadingState) => {
+
+//Sync call reducer actions
+export const webIndexSync = (token,message,isLogedIn,loadingState) => {
     return {
         type:WEB_INDEX,
         payload:{
@@ -22,29 +24,17 @@ const webIndexSync = (token,message,isLogedIn,loadingState) => {
 
     }
 }
-// const multipleStoreUpdate = (dispatch,...actionMethods) => {
-//     // var actions =[];
-//     // actionMethods.forEach(action=>{
-//     //     actions.push(
-//     //         dispatch(action)
-//     //     )
-//     // })
-//     console.log("Promising for",actionMethods)
-//     Promise.all([
-//         dispatch( actionMethods[0] ),
-//         dispatch( actionMethods[1] )
-//     ]).then(success=>{
-//         console.log("successfully done  many actions");
-//     })
-// }
+//Asunc call
 export const webIndexAsync = (token) =>{
-   return (dispatch,getState) => {
+   return (dispatch) => {
         API
         .post(apiUrls.WEB_INDEX,{})
         .then(success=>{
             let data = success.data;
             if(data.code===200 && data.success===true){
+                console.log("previous token ",storage.get("token"));
                 storage.store("token",data.data.profile.sessionId);
+                console.log("new token ",storage.get("token"));
                 let message = data.message;
                 let isLogedIn = true;
                 let profile = data.data.profile
@@ -55,6 +45,7 @@ export const webIndexAsync = (token) =>{
                 let message = data.message;
                 let token = "";
                 let isLogedIn = false;
+                storage.clear();
                 dispatch(webIndexSync( token,message,isLogedIn,false));
             }
         })

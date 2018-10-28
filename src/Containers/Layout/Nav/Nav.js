@@ -7,8 +7,7 @@ import { connect } from 'react-redux';
 import './Nav.css';
 
 
-//companyInfo
-import config from '../../../config';
+
 
 //components
 import { CompanyInfo } from '../../../Components/CompanyInfo/CompanyInfo';
@@ -47,7 +46,7 @@ class Nav extends Component{
 
     }
 
-    clicked = (e,action) =>{
+    clicked = (action) =>{
         console.log("UserActions",action)
         switch(action.type){
             case 'LOGOUT':
@@ -65,9 +64,9 @@ class Nav extends Component{
             <div className="NavContainer row">
                 <div className="col-md-2">
                     <CompanyInfo 
-                        name = { config.COMPANY_NAME }
-                        logo = { config.COMPANY_LOGO }
-                        info = { config.COMPANY_INFO }
+                        name = { this.props.companyName }
+                        logo = { this.props.companyLogo }
+                        info = { this.props.companyInfo }
                     ></CompanyInfo>
                 </div>
                 <div className="col-md-8">

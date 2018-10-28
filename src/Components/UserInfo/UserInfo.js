@@ -24,8 +24,25 @@ export const UserInfo = (props) =>{
             <h4>SignIn</h4>&nbsp;<h4>SignOut</h4>
         </div>
     ); 
-    console.log("isLogedIn",props.isLogedIn)
+    console.log("isLogedIn",props.isLogedIn);
+    
+
+
+    let dropDownListJSX = null;
     if(props.isLogedIn){
+
+        if(props.isVisibleDropDown){
+            dropDownListJSX=(
+                <div className="DropDownListItem">
+                    <DropDown dropDownList = {dropDownList} clicked={props.clicked}>
+    
+                    </DropDown>
+                </div>
+            )
+        }
+       
+
+
         userInfoJSX = (
             <div     >
                 <div onClick={props.toggleDropDown}>
@@ -35,15 +52,10 @@ export const UserInfo = (props) =>{
                        
                     >
                     </Avatar>    
-                </div> 
-                {   
-                    props.isVisibleDropDown ?
-                    <div className="DropDownListItem">
-                        <DropDown dropDownList = {dropDownList} clicked={props.clicked}>
+                </div>
 
-                        </DropDown>
-                    </div>
-                    :null
+                {   
+                   dropDownListJSX
                 }
               
                   

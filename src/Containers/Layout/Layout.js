@@ -20,7 +20,6 @@ import Footer from './Footer/Footer';
 import Spinner from '../../Components/UI/Spinner/Spinner';
 
 
-
 ///Layout
 class Layout extends Component{
 
@@ -35,7 +34,9 @@ class Layout extends Component{
             appJSX=(
                 <Aux>
                     <Nav 
-
+                        companyName = {this.props.companyName}
+                        companyLogo = {this.props.companyLogo}
+                        companyInfo = {this.props.companyInfo}
                         appName = { this.props.appName }
                         auth = { this.props.auth }
                         app = { this.props.app }
