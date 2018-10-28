@@ -10,7 +10,7 @@ import asyncComponent from '../../../hoc/asyncComponent';
 
 
 const AsyncAuthComponent = asyncComponent(()=>{
-
+    
     return import('../../Auth/Auth');//dynamic import
 }); 
 
@@ -22,7 +22,6 @@ class Body extends Component{
                 <Switch>
                     <Route 
                     path={reactUrls.AUTH} //'/auth'
-
                     component={AsyncAuthComponent}
                 />
                 </Switch>

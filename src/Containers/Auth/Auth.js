@@ -2,8 +2,7 @@ import React,{ Component } from 'react';
 
 import { Route,Switch,Redirect } from 'react-router-dom';
 
-// import { Login } from '../../Components/Login/Login';
-// import { ForgotPassword } from '../../Components/ForgotPassword/ForgotPassword';
+import { connect } from 'react-redux';
 
 //Urls
 import { reactUrls } from '../../config/registeredUrls';
@@ -116,8 +115,8 @@ class Auth extends Component {
 
                         <Route path = { reactUrls.AUTH + reactUrls.CHANGE_PASSWORD_FORM } render={()=><h3>changePasswordForm</h3>}/>
 
-                        :<h3>exp</h3>
-                        // <Redirect from={ reactUrls.AUTH +'/*' } to={ reactUrls.AUTH + reactUrls.CHANGE_PASSWORD_FORM }/>
+                        :null
+                        
 
                     }
 
@@ -127,4 +126,10 @@ class Auth extends Component {
         );
     }
 }
-export default Auth;
+
+const mapStateToProps = (state) =>{
+    return {
+        isLogedIn:state.app.isLogedIn
+    }
+}
+export default connect(mapStateToProps)(Auth);
