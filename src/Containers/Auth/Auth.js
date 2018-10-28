@@ -11,6 +11,8 @@ import { Register } from '../../Components/Register/Register';
 import { ForgotPassword } from '../../Components/ForgotPassword/ForgotPassword';
 import { Login } from '../../Components/Login/Login';
 
+//validate
+import validate from '../../utils/validate';
 
 class Auth extends Component {
 
@@ -71,6 +73,36 @@ class Auth extends Component {
        
     }
 
+    fillEmail = (event)=>{//onchange
+        let text = event.target.value;
+        if(text && text.trim().length===0){
+            return ;
+        }
+        else{
+            this.setState({
+                email:text
+            });
+        }
+
+    }
+    checkEmail=()=>{
+        let email = this.state.email;
+        console.log("checkEmail",email);
+        if(!validate.email(email)){
+
+            this.setState({
+                isEmailValid:false,
+                validationEmailMsg:'Email is Invalid'
+            })
+
+        }
+    
+    }
+    
+
+
+
+   
     render(){        
         
         return (
@@ -82,7 +114,14 @@ class Auth extends Component {
 
                         this.state.signUpForm   ?
 
-                        <Route path={ reactUrls.AUTH + reactUrls.SIGN_UP } component={Register} />
+                        <Route 
+                            path={ reactUrls.AUTH + reactUrls.SIGN_UP }
+                            
+                           
+
+                            render={()=><Register  checkEmail={this.checkEmail}
+                            fillEmail={this.fillEmail}/>} 
+                        />
 
 
                         :null
@@ -132,4 +171,4 @@ const mapStateToProps = (state) =>{
         isLogedIn:state.app.isLogedIn
     }
 }
-export default connect(mapStateToProps)(Auth);
+export default connect(mapStateToProps,null)(Auth);
