@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
 
-import { Route } from 'react-router-dom'
+import { Route,Switch } from 'react-router-dom'
 
 
 import { reactUrls } from '../../../config/registeredUrls';
 
 //Routes in body
-import Auth from '../../Auth/Auth';
+import asyncComponent from '../../../hoc/asyncComponent';
 
+
+const AsyncAuthComponent = asyncComponent(()=>{
+
+    return import('../../Auth/Auth');//dynamic import
+}); 
 
 class Body extends Component{
     render(){
         return(
             <div>
                 <h1>Body</h1>
-                <Route 
+                <Switch>
+                    <Route 
                     path={reactUrls.AUTH} //'/auth'
 
-                    component={Auth}
+                    component={AsyncAuthComponent}
                 />
-                <Redirect to={reactUrls.ROOT} />
+                </Switch>
+                
+                {/* <Redirect to={reactUrls.ROOT} /> */}
             </div>
         )
     }

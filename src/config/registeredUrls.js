@@ -20,7 +20,8 @@ export const reactUrls = {
     AUTH:'/auth',
     SIGN_IN:'/login',
     SIGN_UP:'/register',
-    FORGOT_PASSWORD:'/forgot-password'
+    FORGOT_PASSWORD:'/forgot-password',
+    CHANGE_PASSWORD_FORM:'/change-password'
 
 
 

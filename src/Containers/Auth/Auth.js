@@ -21,7 +21,7 @@ class Auth extends Component {
         signInForm:false,
         signUpForm:false,
         forgotPasswordForm:false,
-
+        changePasswordForm:true,
 
         email:'',
         isEmailValid:true,
@@ -57,16 +57,19 @@ class Auth extends Component {
 
         if(this.props.isLogedIn){
             this.setState({
-                forgotPasswordForm:true
-            })
+                changePasswordForm:true
+            });
         }
         else{
             this.setState({
                 signInForm:true,
                 signUpForm:true,
-                forgotPasswordForm:true
-            })
+                forgotPasswordForm:true,
+                changePasswordForm:false
+
+            });
         }
+       
     }
 
     render(){        
@@ -105,6 +108,16 @@ class Auth extends Component {
                         <Route path={ reactUrls.AUTH + reactUrls.FORGOT_PASSWORD } component={ForgotPassword} />
 
                         :null
+
+                    }
+                    {
+
+                        this.state.changePasswordForm   ?
+
+                        <Route path = { reactUrls.AUTH + reactUrls.CHANGE_PASSWORD_FORM } render={()=><h3>changePasswordForm</h3>}/>
+
+                        :<h3>exp</h3>
+                        // <Redirect from={ reactUrls.AUTH +'/*' } to={ reactUrls.AUTH + reactUrls.CHANGE_PASSWORD_FORM }/>
 
                     }
 
