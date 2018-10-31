@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 
 import { connect } from 'react-redux';
-
 //Import actions creators
 import {
   webIndexAsync,webIndexSync
