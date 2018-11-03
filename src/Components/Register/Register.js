@@ -8,29 +8,26 @@
 
  
     console.log("Ptops to children is",props);
-        return(
+    let formElements=[];
+    for(let key in props.signInForm){
+        formElements.push({id:key,config:props.signInForm[key]})
+    }    
+    return(
             <div className='col-md-10 Register'>
-                <h1>Register</h1>
-                <div className='row'>
-                <div className='float-left container' style={{margin:5, fontSize:16}}><Link to='/'>Back to Login</Link></div>
-                <div className='col-md-6'>
-                <Input 
-                   
-                type='text' id='registerFirstName'>First Name</Input></div>
-                <div className='col-md-6'><Input type='text' id='registerLastName'>Last Name</Input></div>
-                <div className='col-md-12'>
-                    <Input type='email' id='registerEmail'
-                         onChange={props.fillEmail}
-                         onBlur={props.checkEmail}
-                    >Email</Input>
-                </div>
-                <div className='col-md-6'><Input type='text' id='registerUserName'>User Name</Input></div>
-                <div className='col-md-6'><Input type='text' id='registerDOB'>D.O.B.</Input></div>
-                <div className='col-md-6'><Input type='password' id='registerPassword'>Password</Input></div>
-                <div className='col-md-6'><Input type='password' id='registerConfirmPassword'>Confirm Password</Input></div>
+            <form className="form" onSubmit={(event)=>props.submit(event,'signInForm')}>
+            {formElements.map((formElement)=>{
+                return <Input key={formElement.id} elementType={formElement.config.elementType} 
+                elementConfig={formElement.config.elementConfig} 
+                changed={(event)=>props.changed(event,formElement.id,'signInForm')}
+                touched={formElement.config.touched}
+                invalid={!formElement.config.valid}
+                message={formElement.config.message}
+                label={formElement.id}/>
+            })}
                 <Button type='submit' className='primary'>Register</Button>
+                </form>
                 </div>
-            </div>
+            
 
         )
   
