@@ -1,0 +1,25 @@
+.Modal{
+    position:fixed;
+    z-index:500;
+    width:70%;
+    background: white;
+    padding:16px;
+    top:30%;
+    left:15%;
+    box-shadow:2px 2px 2px black;
+    animation:modal 2s ;
+}
+@keyframes modal{
+    0%{
+        transform:scale(1)
+    }
+    
+    50%{
+        transform: scale(1.2)
+    }
+    100%{
+
+
+        transform:scale(1)
+    }
+}
