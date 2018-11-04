@@ -1,8 +1,8 @@
  import React,{Component} from 'react'
  import './Register.css'
  import {Link} from 'react-router-dom'
- import Input from '../UI/Input/Input'
- import Button from '../UI/Button/Button'
+ import Input from '../../../Components/UI/Input/Input'
+ import Button from '../../../Components/UI/Button/Button'
 
  export const Register =(props)=>{
 
