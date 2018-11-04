@@ -1,10 +1,11 @@
-import React , { Component } from 'react';
+import React , { Component,Fragment } from 'react';
+import {BrowserRouter as Router} from 'react-router-dom'
 import { connect } from 'react-redux';
 
 
 
-//import Auxilary 
-import Auxilary from '../../hoc/Auxilary';
+//import Aux 
+// import Aux from '../../hoc/Aux';
 
 
 
