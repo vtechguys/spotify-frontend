@@ -18,148 +18,169 @@ class Auth extends Component {
 
 
     state = {
+        loginForm:{
+            email:{
+                elementType:'input',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Enter Email'
+                },
+                value:'',
+                validationFailMessage:'',
+                valid:false,
+                touched:false,
+                validations:{
+                    required:true,
+                    type:'email'
+                }
+            },
+            password:{
+                elementType:'input',
+                elementConfig:{
+                    type:'password',
+                    placeholder:'Enter your password'
+                },
+                value:'',
+                validationFailMessage:'',
+                valid:false,
+                touched:false,
+                validations:{
+                    required:true
+                }
+            }
+        },
+        signInForm:{
+            email:{
+                elementType:'input',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Enter Email'
+                },
+                value:'',
+                validationFailMessage:'',
+                valid:false,
+                touched:false,
+                validations:{
+                    required:true,
+                    type:'email'
+                }
+            },
+            password:{
+                elementType:'input',
+                elementConfig:{
+                    type:'password',
+                    placeholder:'Enter your password'
+                },
+                value:'',
+                validationFailMessage:'',
+                valid:false,
+                touched:false,
+                validations:{
+                    required:true,
+                    minLength:4
+                }
+            },
+            confirm_Password:{
+                elementType:'input',
+                elementConfig:{
+                    type:'password',
+                    placeholder:'Confirm Password'
+                },
+                value:'',
+                validationFailMessage:'',
+                valid:false,
+                touched:false,
+                validations:{
+                    mustMatchPassword:true
+                }
+            },
+            gender:{
+              elementType:'dropdown',
+              elementConfig:{
+                  options:[{value:'male',displayValue:'Male'},{value:'female',displayValue:'Female'}]
+              },
+              value:'male',
+              valid:true,
+              validationFailMessage:'',
+              validations:{}
+            }
 
-        signInForm:false,
-        signUpForm:false,
-        forgotPasswordForm:false,
-        changePasswordForm:true,
-
-        email:'',
-        isEmailValid:true,
-        validationEmailMsg:'',
-
-        password:'',
-        isPasswordValid:true,
-        validationPasswordMsg:'',
-
-        confirmPassword:'',
-        isCofmPasswordValid:true,
-        validationConfmPassMsg:'',
-
-        confmPassValid:true,
-
-        firstName:'',
-        isValidFirstName:true,
-        validationFirstNameMsg:'',
-
-        lastName:'',
-        isValidLastName:true,
-        validationLastNameMsg:'',
-
-        dob:'',
-        isValidDOB:true,
-        validationDOBMsg:''
-
-
-
+        },
+        isLoginFormValid:false,
+        isSignInFormValid:false
     }
-
-    componentDidMount(){
-
-        if(this.props.isLogedIn){
-            this.setState({
-                changePasswordForm:true
-            });
-        }
-        else{
-            this.setState({
-                signInForm:true,
-                signUpForm:true,
-                forgotPasswordForm:true,
-                changePasswordForm:false
-
-            });
-        }
-       
-    }
-
-    fillEmail = (event)=>{//onchange
-        let text = event.target.value;
-        if(text && text.trim().length===0){
-            return ;
-        }
-        else{
-            this.setState({
-                email:text
-            });
-        }
-
-    }
-    checkEmail=()=>{
-        let email = this.state.email;
-        console.log("checkEmail",email);
-        if(!validate.email(email)){
-
-            this.setState({
-                isEmailValid:false,
-                validationEmailMsg:'Email is Invalid'
-            })
-
-        }
     
+    changeHandler=(event,element,form)=>{
+      const updatingForm={...this.state[form]};
+      const updatingFormElement={...updatingForm[element]};
+      updatingFormElement.value=event.target.value;
+      let validateObject=validate.checkValidity(updatingFormElement.value,updatingFormElement.validations,updatingForm['password'].value)
+      updatingFormElement.valid=validateObject.isValid;
+      updatingFormElement.message=validateObject.message;
+      updatingFormElement.touched=true;
+      updatingForm[element]=updatingFormElement;
+      let stateName = form==='loginForm'?'isLoginFormValid':'isSignInFormValid';
+      let isOverAllFormValid=true;
+      for(let key in updatingForm)
+      {
+        isOverAllFormValid=updatingForm[key].valid && isOverAllFormValid;
+      }
+      this.setState({[form]:updatingForm,[stateName]:isOverAllFormValid})
     }
-    
+
+    formSubmitHandler=(event,form)=>{
+        event.preventDefault();
+        if(!this.state.isLoginFormValid || !this.state.isSignInFormValid)
+       {const updatingForm={...this.state[form]};
+       for(let element in updatingForm)
+        {const updatingFormElement={...updatingForm[element]};
+        let validateObject=validate.checkValidity(updatingFormElement.value,updatingFormElement.validations,updatingForm['password'].value)
+       updatingFormElement.valid=validateObject.isValid;
+       updatingFormElement.message=validateObject.message;
+       console.log(updatingFormElement);
+       updatingFormElement.touched=true;
+       updatingForm[element]=updatingFormElement;
+    }
+    this.setState({[form]:updatingForm})
+    return;
+       }
+        const formToBeSubmitted={...this.state[form]};
+       const deClutteredForm={};
+      
+       for(let key in formToBeSubmitted)
+       {    if(key==='confirmPassword')
+       {
+           continue;
+       }
+           deClutteredForm[key]=formToBeSubmitted[key].value;
+       }
+       console.log("this object will be pushed to databse");
+       console.log(deClutteredForm);
+       //this is the object that will be pushed to database
+    }
+        
+
 
 
 
    
     render(){        
-        
+        console.log(reactUrls.AUTH + reactUrls.SIGN_UP );
+        console.log(this.state)
         return (
             <div className="">
                 <h1>Auth</h1>
                 <Switch>
 
-                    {
-
-                        this.state.signUpForm   ?
-
-                        <Route 
-                            path={ reactUrls.AUTH + reactUrls.SIGN_UP }
-                            
-                           
-
-                            render={()=><Register  checkEmail={this.checkEmail}
-                            fillEmail={this.fillEmail}/>} 
-                        />
-
-
-                        :null
-
-
-                    }
-                    {
-
-
-                        this.state.signInForm   ?
-
-                        <Route path={ reactUrls.AUTH + reactUrls.SIGN_IN } component={Login}/>
-
-                        :null
-
-
-                    }
-                    {
-                        
-                        this.state.forgotPasswordForm   ?
-
-                        <Route path={ reactUrls.AUTH + reactUrls.FORGOT_PASSWORD } component={ForgotPassword} />
-
-                        :null
-
-                    }
-                    {
-
-                        this.state.changePasswordForm   ?
-
-                        <Route path = { reactUrls.AUTH + reactUrls.CHANGE_PASSWORD_FORM } render={()=><h3>changePasswordForm</h3>}/>
-
-                        :null
-                        
-
-                    }
-
-                </Switch>
+    <Route path={ reactUrls.AUTH + reactUrls.SIGN_UP }
+    key={this.props.location.pathname}
+render={()=><Register signInForm={this.state.signInForm} changed={this.changeHandler} submit={this.formSubmitHandler}
+disabled={this.state.isSignInFormValid}/>}/>
+<Route path={reactUrls.AUTH+reactUrls.SIGN_IN}
+key={this.props.location.pathname}
+render={()=><Login loginForm={this.state.loginForm} changed={this.changeHandler} submit={this.formSubmitHandler}
+disabled={this.state.isLoginFormValid}/>}/>
+</Switch>
          
             </div>
         );

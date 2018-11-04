@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import Login from './Components/UI/Login/Login'
 // import Register from './Components/UI/Register/Register'
@@ -7,7 +8,6 @@ import './App.css';
 
 
 import { connect } from 'react-redux';
-
 //Import actions creators
 import {
   webIndexAsync,webIndexSync

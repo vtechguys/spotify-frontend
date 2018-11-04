@@ -1,15 +1,34 @@
-import React from 'react'
-import './Input.css'
-
-const Input = (props)=>{
-
-
-    return(
-        <div className="form-group col-md-12" style={{padding:0}}>
-    <label htmlFor={props.id} className="float-left">{props.children}</label>
-    <input onChange={props.onChange} onBlur={props.onBlur} type={props.type} className="form-control col-md-12" id={props.id} placeholder={props.children}/>
-  </div>
-    )
-}
+import React from 'react';
+import './Input.css';
+const Input = (props) => {
+    console.log('Input props')
+    console.log(props)
+    let inputElement=null;
+    let classesToApply=['Input'];
+    if(props.invalid && props.touched)
+    {
+        classesToApply.push('Invalid');
+    }
+    switch(props.elementType)
+    {
+        case 'input':
+        inputElement=<input className={classesToApply.join(' ')} {...props.elementConfig} onChange={props.changed}/>;
+        break;
+        case 'dropdown':
+        inputElement=<select onChange={props.changed} className="Dropdown">{props.elementConfig.options.map((option)=>{
+        return <option key={option.displayValue}>{option.displayValue}</option>})}
+        </select>
+        break;
+        default:
+        inputElement=<input/>
+    }
+    return (
+        <div className="form-element">
+            <label className="Label">{props.label}</label>
+            {inputElement}
+            {props.invalid && props.touched && <span className="ValidateError">{'!'+props.message}</span>}
+        </div>
+    );
+};
 
 export default Input;

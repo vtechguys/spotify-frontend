@@ -1,7 +1,48 @@
 'use strict';
 
 const validate = {
+    checkValidity:function(value,rule,password)
+    {
+        let isValid=true;
+        let message='';
+      
+        if(rule.required)
+        {
+            isValid=value.trim()!=='' && isValid;
+            
+           if(!isValid)
+           { message='please fill in the field';
+           return {isValid,message}   
+        }
+        }
+        if(rule.type==='email')
+        {
+        isValid=/^([a-zA-Z0-9_\-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(value) && isValid;
 
+        if(!isValid)
+       {
+       message="this is not a valid email";
+       return {isValid,message}
+       }        
+        }
+        if(rule.minLength)
+        {
+            isValid=value.length>=4 && isValid;
+            if(!isValid)
+            {message='must be greater than four';
+            return {isValid,message}    
+        }
+        }
+        if(rule.mustMatchPassword)
+        {console.log("inside");
+            isValid=value===password && isValid;
+            if(!isValid)
+            {message='passwords not matched';
+            return {isValid,message}
+        }
+        }
+        return {isValid,message};
+    },
     username: function (string) {
         if (string === undefined || typeof(string)!="string") {
             return false;

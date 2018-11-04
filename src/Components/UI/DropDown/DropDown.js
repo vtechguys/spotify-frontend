@@ -9,6 +9,7 @@ export const DropDown = (props) =>{
                 
                 return (
                     <div 
+                    style={{padding : 2}}
                         onClick={
                             ()=>{
 

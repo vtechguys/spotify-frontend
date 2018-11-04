@@ -61,20 +61,20 @@ class Nav extends Component{
 
 
         return (
-            <div className="NavContainer row">
-                <div className="col-md-2">
+            <div className="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div className='col-md-2'>
                     <CompanyInfo 
                         name = { this.props.companyName }
                         logo = { this.props.companyLogo }
                         info = { this.props.companyInfo }
                     ></CompanyInfo>
-                </div>
-                <div className="col-md-8">
+                    </div>
+                <div className="col-md-8" style={{marginTop: 18,paddingLeft : 20,marginRight : 60}}>
                     <SearchBar 
                         onSumbit = { this.searchSubmit }
                     ></SearchBar>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-1">
                     <UserInfo 
                         userImg = { this.props.auth.userImage }
                         avatarName = { this.props.auth.name }
@@ -84,7 +84,8 @@ class Nav extends Component{
                         clicked = { this.clicked }
                     ></UserInfo>
                 </div>
-            </div>
+               </div>
+
         )
     }
 }
