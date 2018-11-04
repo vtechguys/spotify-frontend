@@ -1,6 +1,8 @@
 import React from 'react';
 import './Input.css';
 const Input = (props) => {
+    console.log('Input props')
+    console.log(props)
     let inputElement=null;
     let classesToApply=['Input'];
     if(props.invalid && props.touched)

@@ -119,7 +119,7 @@ class Auth extends Component {
       updatingFormElement.message=validateObject.message;
       updatingFormElement.touched=true;
       updatingForm[element]=updatingFormElement;
-      let stateName=form==='loginForm'?'isLoginFormValid':'isSignInFormValid';
+      let stateName = form==='loginForm'?'isLoginFormValid':'isSignInFormValid';
       let isOverAllFormValid=true;
       for(let key in updatingForm)
       {
@@ -127,13 +127,14 @@ class Auth extends Component {
       }
       this.setState({[form]:updatingForm,[stateName]:isOverAllFormValid})
     }
+
     formSubmitHandler=(event,form)=>{
         event.preventDefault();
         if(!this.state.isLoginFormValid || !this.state.isSignInFormValid)
        {const updatingForm={...this.state[form]};
        for(let element in updatingForm)
-    {const updatingFormElement={...updatingForm[element]};
-let validateObject=validate.checkValidity(updatingFormElement.value,updatingFormElement.validations,updatingForm['password'].value)
+        {const updatingFormElement={...updatingForm[element]};
+        let validateObject=validate.checkValidity(updatingFormElement.value,updatingFormElement.validations,updatingForm['password'].value)
        updatingFormElement.valid=validateObject.isValid;
        updatingFormElement.message=validateObject.message;
        console.log(updatingFormElement);
@@ -161,15 +162,11 @@ let validateObject=validate.checkValidity(updatingFormElement.value,updatingForm
 
 
 
-    
-
-    
-
-
 
    
     render(){        
         console.log(reactUrls.AUTH + reactUrls.SIGN_UP );
+        console.log(this.state)
         return (
             <div className="">
                 <h1>Auth</h1>
