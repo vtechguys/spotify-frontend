@@ -15,7 +15,8 @@ const initialState = {
     "name": "",
     "sessionId": "",
     "uuid": "",
-    "createdAt": ""
+    "createdAt": "",
+    "errors":null
     
 };
 

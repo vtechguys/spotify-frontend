@@ -1,5 +1,6 @@
 import {
-    WEB_INDEX
+    WEB_INDEX,
+    RESET_MESSAGE
 } from './actionTypes';
 
 import API from '../../axiosRoot';
@@ -50,8 +51,22 @@ export const webIndexAsync = (token) =>{
             }
         })
         .catch(error=>{
-            console.log("Error Occured");
-            throw error;
+            console.log("Error Occured",error);
+
+            let message = "Some error has occured.Please Confirm your Interent connection.";
+            let token = "";
+            let isLogedIn = false;
+            storage.clear();
+            dispatch(webIndexSync( token,message,isLogedIn,false));      
         })
    } 
+}
+
+export const resetMessageState = (message) =>{//toggle is Message visible and reset to incomming Message else ""
+    return {
+        type:RESET_MESSAGE,
+        payload:{
+            message:message||"Please Make sure you are connected to network."
+        }
+    }
 }

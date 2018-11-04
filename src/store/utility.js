@@ -1,3 +1,4 @@
+'use strict'
 const expandArray = (array) => {
     let element = array[0];
     let newArray = [...array];
