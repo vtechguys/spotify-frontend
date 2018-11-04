@@ -91,10 +91,10 @@ class Nav extends Component{
 }
 
 
-const mapStateToDispatch = (dispatch) =>{
+const mapDispatchToProps = (dispatch) =>{
     return {
         logout:()=>dispatch( signOutAsync() ),
         //searchIt:( type, data )=>dispatch( search( type, data ) )
     }
 }
-export default connect(null, mapStateToDispatch)(Nav);
+export default connect(null, mapDispatchToProps)(Nav);
