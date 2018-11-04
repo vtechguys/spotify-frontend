@@ -2,18 +2,14 @@
 import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
 import './Login.css'
-import Input from '../UI/Input/Input'
-import Button from '../UI/Button/Button'
+import Input from '../../../Components/UI/Input/Input'
+import Button from '../../../Components/UI/Button/Button'
 export const Login =(props)=>{
     let formElements=[];
-    console.log('Login props')
-    console.log(props)
     for(let key in props.loginForm)
     {
         formElements.push({id:key,config:props.loginForm[key]})
     }
-    console.log('formElements')
-   console.log(formElements)
         return(
             <div className='col-md-6 Login'>
             <h1>Login</h1>

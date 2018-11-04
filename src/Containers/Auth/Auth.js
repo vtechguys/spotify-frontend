@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
 //Urls
 import { reactUrls } from '../../config/registeredUrls';
 //Route components
-import { Register } from '../../Components/Register/Register';
-import { ForgotPassword } from '../../Components/ForgotPassword/ForgotPassword';
-import { Login } from '../../Components/Login/Login';
+import { Register } from '../Auths/Register/Register';
+import { ForgotPassword } from '../Auths/ForgotPassword/ForgotPassword';
+import { ResetPassword} from '../Auths/ResetPassword/ResetPassword'
+import { Login } from '../Auths/Login/Login';
 
 //validate
 import validate from '../../utils/validate';
@@ -105,9 +106,56 @@ class Auth extends Component {
               validations:{}
             }
 
+        },forgotPassword : {
+            email:{
+                elementType:'input',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Enter Email'
+                },
+                value:'',
+                validationFailMessage:'',
+                valid:false,
+                touched:false,
+                validations:{
+                    required:true,
+                    type:'email'
+                }
+            }
+        },resetPassword : {
+            password:{
+                elementType:'input',
+                elementConfig:{
+                    type:'password',
+                    placeholder:'Enter your password'
+                },
+                value:'',
+                validationFailMessage:'',
+                valid:false,
+                touched:false,
+                validations:{
+                    required:true,
+                    minLength:4
+                }
+            },
+            confirm_Password:{
+                elementType:'input',
+                elementConfig:{
+                    type:'password',
+                    placeholder:'Confirm Password'
+                },
+                value:'',
+                validationFailMessage:'',
+                valid:false,
+                touched:false,
+                validations:{
+                    mustMatchPassword:true
+                }
+            }
         },
         isLoginFormValid:false,
-        isSignInFormValid:false
+        isSignInFormValid:false,
+        isForgotFormValid : false
     }
     
     changeHandler=(event,element,form)=>{
@@ -174,15 +222,26 @@ class Auth extends Component {
 
     <Route path={ reactUrls.AUTH + reactUrls.SIGN_UP }
     key={this.props.location.pathname}
-render={()=><Register signInForm={this.state.signInForm} changed={this.changeHandler} submit={this.formSubmitHandler}
-disabled={this.state.isSignInFormValid}/>}/>
-<Route path={reactUrls.AUTH+reactUrls.SIGN_IN}
-key={this.props.location.pathname}
-render={()=><Login loginForm={this.state.loginForm} changed={this.changeHandler} submit={this.formSubmitHandler}
-disabled={this.state.isLoginFormValid}/>}/>
-</Switch>
-         
-            </div>
+    render={()=><Register signInForm={this.state.signInForm} changed={this.changeHandler} submit={this.formSubmitHandler}
+    disabled={this.state.isSignInFormValid}/>}/>
+
+    <Route path={reactUrls.AUTH+reactUrls.SIGN_IN}
+    key={this.props.location.pathname}
+    render={()=><Login loginForm={this.state.loginForm} changed={this.changeHandler} submit={this.formSubmitHandler}
+    disabled={this.state.isLoginFormValid}/>}/>
+
+    <Route path={reactUrls.AUTH + reactUrls.FORGOT_PASSWORD}
+    key={this.props.location.pathname}
+    render={()=><ForgotPassword forgotPassword={this.state.forgotPassword} changed={this.changeHandler} submit={this.formSubmitHandler}
+    disabled={this.state.isForgotFormValid}/>}></Route>
+
+    <Route path={reactUrls.AUTH + reactUrls.CHANGE_PASSWORD_FORM}
+    key={this.props.location.pathname}
+    render={()=><ResetPassword resetPassword={this.state.resetPassword} changed={this.changeHandler} submit={this.formSubmitHandler}
+    disabled={this.state.isForgotFormValid}/>}></Route>
+
+    </Switch>
+    </div>
         );
     }
 }
