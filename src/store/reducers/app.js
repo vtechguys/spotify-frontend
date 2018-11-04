@@ -10,7 +10,7 @@ const initialState = {
     token:"",
     message:"",
     isLogedIn:false,
-    loadingState:true
+    loadingState:false
 }
 const webIndexReducing = (state,action) =>{
     console.log("WEB_INDEX [appReducer]");

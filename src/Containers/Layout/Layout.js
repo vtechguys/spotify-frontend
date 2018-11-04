@@ -33,7 +33,7 @@ class Layout extends Component{
         );
         if(!this.props.app.loadingState){
             appJSX=(
-                <Aux>
+                <Auxilary>
                     <Nav 
                         companyName = {this.props.companyName}
                         companyLogo = {this.props.companyLogo}
@@ -59,7 +59,7 @@ class Layout extends Component{
                     >
 
                     </Body>
-                </Aux>
+                </Auxilary>
             )
         }
 
