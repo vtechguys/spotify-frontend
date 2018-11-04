@@ -1,6 +1,19 @@
+
+//AUTH
 export const SIGN_UP = 'SIGN_UP';
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 
-
+//WEB_INDEX
 export const WEB_INDEX = 'WEB_INDEX';
+export const RESET_MESSAGE = 'RESET_MESSAGE';
+
+
+//PROGRAM
+export const CREATE_PROGRAM = 'CREATE_PROGRAM';
+export const LOAD_PROGRAMS = 'LOAD_PROGRAMS';
+export const LOAD_PROGRAM_BY_ID = 'LOAD_PROGRAMS_BY_ID';
+export const TOGGLE_PROGRAM = 'TOGGLE_PROGRAM';
+export const DELETE_PROGRAM = 'DELETE_PROGRAM';
+export const UPDATE_PROGRAM = 'UPDATE_PROGRAM';
+export const LOAD_ALL_PRGRAMS = 'LOAD_ALL_PROGRAMS';

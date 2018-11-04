@@ -1,55 +1,51 @@
 'use strict';
 
 const validate = {
-    checkValidity:function(value,rule,password)
-    {
-        let isValid=true;
-        let message='';
-      
-        if(rule.required)
-        {
-            isValid=value.trim()!=='' && isValid;
-            
-           if(!isValid)
-           { message='please fill in the field';
-           return {isValid,message}   
-        }
-        }
-        if(rule.type==='email')
-        {
-        isValid=/^([a-zA-Z0-9_\-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(value) && isValid;
+    checkValidity: function (value, rule, password) {
+        var isValid = true;
+        var message = '';
 
-        if(!isValid)
-       {
-       message="this is not a valid email";
-       return {isValid,message}
-       }        
+        if (rule.required) {
+            isValid = value.trim() !== '' && isValid;
+
+            if (!isValid) {
+                message = 'please fill in the field';
+                return { isValid, message }
+            }
         }
-        if(rule.minLength)
-        {
-            isValid=value.length>=4 && isValid;
-            if(!isValid)
-            {message='must be greater than four';
-            return {isValid,message}    
+        if (rule.type === 'email') {
+            isValid = /^([a-zA-Z0-9_\-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(value) && isValid;
+
+            
+            if (!isValid) {
+                message = "this is not a valid email";
+                return { isValid, message }
+            }
         }
+        if (rule.minLength) {
+            isValid = value.length >= 4 && isValid;
+            if (!isValid) {
+                message = 'must be greater than four';
+                return { isValid, message }
+            }
         }
-        if(rule.mustMatchPassword)
-        {console.log("inside");
-            isValid=value===password && isValid;
-            if(!isValid)
-            {message='passwords not matched';
-            return {isValid,message}
+        if (rule.mustMatchPassword) {
+            console.log("inside");
+            isValid = value === password && isValid;
+            if (!isValid) {
+                message = 'passwords not matched';
+                return { isValid, message }
+            }
         }
-        }
-        return {isValid,message};
+        return { isValid, message };
     },
     username: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
-        var letters = /^[A-Za-z0-9._]+$/;
-        if (string.length < 5 || string.length > 20 || string.match(letters) === null) {
+        var varters = /^[A-Za-z0-9._]+$/;
+        if (string.length < 5 || string.length > 20 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -57,12 +53,12 @@ const validate = {
         }
     },
     password: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
-        var letters = /(?=^.{6,25}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
-        if (string.length <8 || string.length >25 || string.match(letters) === null) {
+        var varters = /(?=^.{6,25}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/;
+        if (string.length < 8 || string.length > 25 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -70,18 +66,18 @@ const validate = {
         }
     },
     email: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
-        var comValid=true;
+        var comValid = true;
         var atpos = string.indexOf("@");
         var dotpos = string.lastIndexOf(".");
         if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= string.length) {
-            comValid=false;
+            comValid = false;
         }
-        var letters = /^[A-Z0-9a-z!@#$%&*+-/=?^_`'{|}~]+$/;
-        if (string.length < 5 || string.length > 100 || string.match(letters) === null || string.match("@") === null || comValid===false) {
+        var varters = /^[A-Z0-9a-z!@#$%&*+-/=?^_`'{|}~]+$/;
+        if (string.length < 5 || string.length > 100 || string.match(varters) === null || string.match("@") === null || comValid === false) {
             return false;
         }
         else {
@@ -89,12 +85,12 @@ const validate = {
         }
     },
     mobile: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
-        var letters = /^[0-9]+$/;
-        if (string.length != 10 || string.match(letters) === null) {
+        var varters = /^[0-9]+$/;
+        if (string.length != 10 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -102,12 +98,12 @@ const validate = {
         }
     },
     number: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
-        var letters = /^[0-9]+$/;
-        if (string.length < 3 || string.length > 15 || string.match(letters) === null) {
+        var varters = /^[0-9]+$/;
+        if (string.length < 3 || string.length > 15 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -115,12 +111,12 @@ const validate = {
         }
     },
     string: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
-        var letters = /^[A-Za-z0-9-/_',.:@| ]+$/;
-        if (string.length < 3 || string.length > 1000 || string.match(letters) === null) {
+        var varters = /^[A-Za-z0-9-/_',.:@| ]+$/;
+        if (string.length < 3 || string.length > 1000 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -128,12 +124,12 @@ const validate = {
         }
     },
     name: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
-        var letters = /^[A-Za-z ]+$/;
-        if (string.length < 3 || string.length > 50 || string.match(letters) === null) {
+        var varters = /^[A-Za-z ]+$/;
+        if (string.length < 3 || string.length > 50 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -141,12 +137,12 @@ const validate = {
         }
     },
     code: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
-        var letters = /^[A-Za-z0-9+]+$/;
-        if (string.length < 2 || string.length > 16 || string.match(letters) === null) {
+        var varters = /^[A-Za-z0-9+]+$/;
+        if (string.length < 2 || string.length > 16 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -154,12 +150,12 @@ const validate = {
         }
     },
     id: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
-        var letters = /^[A-Za-z0-9]+$/;
-        if (string.length < 4 || string.length > 32 || string.match(letters) === null) {
+        var varters = /^[A-Za-z0-9]+$/;
+        if (string.length < 4 || string.length > 32 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -167,7 +163,7 @@ const validate = {
         }
     },
     gender: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
         var string = string.trim();
@@ -179,13 +175,13 @@ const validate = {
         }
     },
     longString: function (string) {
-        if (string === undefined || typeof(string)!="string") {
+        if (string === undefined || typeof (string) != "string") {
             return false;
         }
-        
+
         var string = string.trim();
-        var letters = /^[A-Za-z0-9-/_',.:+#&=%()^*!@$[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2694-\u2697]|\uD83E[\uDD10-\uDD5D] ]+$/;
-        if (string.length < 2 || string.length > 5000 || string.match(letters) === null) {
+        var varters = /^[A-Za-z0-9-/_',.:+#&=%()^*!@$[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2694-\u2697]|\uD83E[\uDD10-\uDD5D] ]+$/;
+        if (string.length < 2 || string.length > 5000 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -226,7 +222,7 @@ const validate = {
             return false;
         }
         var allProperty = {
-            valid:true
+            valid: true
         };
         for (var i = 0; i < array.length; i++) {
             Object.keys(array[i]).forEach(function (key) {
@@ -235,7 +231,7 @@ const validate = {
                     allProperty.valid = false;
                 }
             });
-            if(allProperty.valid === false){
+            if (allProperty.valid === false) {
                 break;
             }
         }
@@ -249,17 +245,17 @@ const validate = {
             return false;
         }
         var allProperty = {
-            valid:true
+            valid: true
         };
         for (var i = 0; i < array.length; i++) {
             Object.keys(array[i]).forEach(function (key) {
-                var valid = (typeof(array[i][key]) === "string" || (array[i][key] instanceof Array=== true))
-                
+                var valid = (typeof (array[i][key]) === "string" || (array[i][key] instanceof Array === true))
+
                 if (valid != true) {
                     allProperty.valid = false;
                 }
             });
-            if(allProperty.valid === false){
+            if (allProperty.valid === false) {
                 break;
             }
         }
@@ -268,12 +264,12 @@ const validate = {
 
 
 
-    stringObject:function (obj){
+    stringObject: function (obj) {
         console.log('validate stringObject');
         var that = this;
-        if(obj){
+        if (obj) {
             var allProperty = {
-                valid:true
+                valid: true
             };
             Object.keys(obj).forEach(function (key) {
                 var valid = that.string(obj[key]);
@@ -283,7 +279,7 @@ const validate = {
             });
             return allProperty.valid;
         }
-        else{
+        else {
             return false;
         }
     },
@@ -293,8 +289,8 @@ const validate = {
             return false;
         }
         var string = string.trim();
-        var letters = /^[A-Za-z0-9-/_',.!@#$%&?:*()+=|\x22 ]+$/;
-        if (string.length < 2 || string.length > 5000 || string.match(letters) === null) {
+        var varters = /^[A-Za-z0-9-/_',.!@#$%&?:*()+=|\x22 ]+$/;
+        if (string.length < 2 || string.length > 5000 || string.match(varters) === null) {
             return false;
         }
         else {
@@ -316,18 +312,18 @@ const validate = {
         }
         return valid;
     },
-    date:function(date){
+    date: function (date) {
         if (Object.prototype.toString.call(date) === "[object Date]") {
             // it is a date
-            if (isNaN(date.getTime())) {  
-              // date is not valid
-              return false;
-            } 
-            else {
-              // date is valid
-              return true;
+            if (isNaN(date.getTime())) {
+                // date is not valid
+                return false;
             }
-        } 
+            else {
+                // date is valid
+                return true;
+            }
+        }
         else {
             // not a date
             return false;

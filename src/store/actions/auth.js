@@ -4,7 +4,7 @@ import {
 } from './actionTypes';
 
 //API ROOT CALL
-import API from '../../axiosRoot';
+import API from '../../axiosRoot';//Make it without auth header
 //API_URLS REGISTERED
 import { apiUrls } from '../../config/registeredUrls';
 
@@ -12,7 +12,6 @@ import { apiUrls } from '../../config/registeredUrls';
 import uuid from 'uuid/v4';
 //Save to localhost
 import storage from '../../utils/localStorage';
-
 
 
 
