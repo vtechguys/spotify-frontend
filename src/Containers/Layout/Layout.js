@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 
 //import Aux 
-// import Aux from '../../hoc/Aux';
+import Auxilary from '../../hoc/Auxilary';
 
 
 
