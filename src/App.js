@@ -35,7 +35,7 @@ class App extends Component {
     else{
       this.props.webSessionSync("","No token found login again",false,false);
       //No token. need to login...redirect to login page
-      console.log("No token.Need to login...redirect to login page")
+      //console.log("No token.Need to login...redirect to login page")
     }
   }
 

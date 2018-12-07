@@ -33,9 +33,9 @@ export const webIndexAsync = (token) =>{
         .then(success=>{
             let data = success.data;
             if(data.code===200 && data.success===true){
-                console.log("previous token ",storage.get("token"));
+                //console.log("previous token ",storage.get("token"));
                 storage.store("token",data.data.profile.sessionId);
-                console.log("new token ",storage.get("token"));
+                //console.log("new token ",storage.get("token"));
                 let message = data.message;
                 let isLogedIn = true;
                 let profile = data.data.profile
@@ -46,17 +46,15 @@ export const webIndexAsync = (token) =>{
                 let message = data.message;
                 let token = "";
                 let isLogedIn = false;
-                storage.clear();
                 dispatch(webIndexSync( token,message,isLogedIn,false));
             }
         })
         .catch(error=>{
-            console.log("Error Occured",error);
+            //console.log("Error Occured",error);
 
             let message = "Some error has occured.Please Confirm your Interent connection.";
             let token = "";
             let isLogedIn = false;
-            storage.clear();
             dispatch(webIndexSync( token,message,isLogedIn,false));      
         })
    } 

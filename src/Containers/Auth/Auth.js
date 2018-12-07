@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import { Route, Switch, Redirect } from 'react-router-dom';
-
-import { connect } from 'react-redux';
+import {Route,Switch,Redirect} from 'react-router-dom';
 
 //Urls
 import { reactUrls } from '../../config/registeredUrls';
@@ -106,8 +104,7 @@ class Auth extends Component {
             }
 
         },
-        isLoginFormValid: false,
-        isSignInFormValid: false
+       
     }
 
     changeHandler = (event, element, form) => {
@@ -135,7 +132,7 @@ class Auth extends Component {
                 let validateObject = validate.checkValidity(updatingFormElement.value, updatingFormElement.validations, updatingForm['password'].value)
                 updatingFormElement.valid = validateObject.isValid;
                 updatingFormElement.message = validateObject.message;
-                console.log(updatingFormElement);
+                //console.log(updatingFormElement);
                 updatingFormElement.touched = true;
                 updatingForm[element] = updatingFormElement;
             }
@@ -151,46 +148,86 @@ class Auth extends Component {
             }
             deClutteredForm[key] = formToBeSubmitted[key].value;
         }
-        console.log("this object will be pushed to databse");
-        console.log(deClutteredForm);
+        //console.log("this object will be pushed to databse");
+        //console.log(deClutteredForm);
         //this is the object that will be pushed to database
     }
-
-
-
-
-
-
-
-
-
-
-
     render() {
-        console.log(reactUrls.AUTH + reactUrls.SIGN_UP);
+        console.log('AUTH PROPS',this.props)
+        //console.log(this.props);
+        let authJSX = null;
+        if(this.props.app.isLogedIn){//logedIn==true
+            if(this.props.location.pathname===(reactUrls.AUTH + reactUrls.CHANGE_PASSWORD_FORM)){
+                authJSX = (
+                    <Route 
+                    path={reactUrls.AUTH + reactUrls.CHANGE_PASSWORD_FORM}
+                    render = {
+                        ()=><ForgotPassword/>
+                    }
+            />
+                    
+                )
+            }
+            else{
+                authJSX=(
+                    <h1>No page found</h1>
+                )
+            }
+        }
+        else{//not logedin
+            if(this.props.location.pathname===(reactUrls.AUTH + reactUrls.SIGN_IN)){
+                authJSX = (
+                    <Route 
+                            path={reactUrls.AUTH + reactUrls.SIGN_IN}
+                            render = {
+                                ()=><Login loginForm={this.state.loginForm} changed={this.changeHandler} submit={this.formSubmitHandler}/>
+                            }
+                    />
+                )
+            }
+            else if(this.props.location.pathname===(reactUrls.AUTH + reactUrls.SIGN_UP)){
+                authJSX = (
+                    <Route 
+                            path={reactUrls.AUTH + reactUrls.SIGN_UP}
+                            render = {()=>  <Register signInForm={this.state.signInForm} changed={this.changeHandler} submit={this.formSubmitHandler}
+                            disabled={this.state.isSignInFormValid} />}
+                        />
+                )
+            }
+            else if(this.props.location.pathname===(reactUrls.AUTH + reactUrls.FORGOT_PASSWORD)){
+                authJSX = (
+                    <h1>Forgot password</h1>
+                )
+            }
+            else{
+                authJSX = (
+                    <h1>page not found</h1>
+                )
+            }
+        }
+
+
         return (
             <div className="">
                 <h1>Auth</h1>
                 <Switch>
 
-                    <Route path={reactUrls.AUTH + reactUrls.SIGN_UP}
-                        key={this.props.location.pathname}
-                        render={() => <Register signInForm={this.state.signInForm} changed={this.changeHandler} submit={this.formSubmitHandler}
-                            disabled={this.state.isSignInFormValid} />} />
-                    <Route path={reactUrls.AUTH + reactUrls.SIGN_IN}
-                        key={this.props.location.pathname}
-                        render={() => <Login loginForm={this.state.loginForm} changed={this.changeHandler} submit={this.formSubmitHandler}
-                            disabled={this.state.isLoginFormValid} />} />
-                </Switch>
+                    {
+
+
+                        authJSX
+
+
+                    }
+                    <Redirect from={reactUrls.AUTH + '/*'} to={reactUrls.ROOT}/>
+
+                
+                </Switch>  
 
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        isLogedIn: state.app.isLogedIn
-    }
-}
-export default connect(mapStateToProps, null)(Auth);
+
+export default Auth;

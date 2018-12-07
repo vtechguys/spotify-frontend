@@ -36,12 +36,12 @@ export const updateObj = (oldObj,prp) =>{
     let newObj = { ...oldObj, ...prp };
     let keys = Object.keys(oldObj);
 
-    keys.forEach(key=>{
-        if(typeof(oldObj[key])==="object"){
-            //Only dealing with array and {} not functions
-            newObj[key] = expandObj(oldObj[key]);
-        }
-    });
+    // keys.forEach(key=>{
+    //     if(typeof(oldObj[key])==="object"){
+    //         //Only dealing with array and {} not functions
+    //         newObj[key] = expandObj(oldObj[key]);
+    //     }
+    // });
 
     return newObj;
 }

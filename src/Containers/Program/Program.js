@@ -32,7 +32,7 @@ class Program extends Component{
         if(this.props){
 
         }
-
+        //console.log("program ",this.props)
 
 
         return (

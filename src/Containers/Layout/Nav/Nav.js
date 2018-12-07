@@ -30,7 +30,7 @@ class Nav extends Component{
     
     //toggleDropDown
     toggleDropDown = () =>{
-        console.log("toggleDropDown ",!this.state.isVisibleDropDown);
+        //console.log("toggleDropDown ",!this.state.isVisibleDropDown);
         this.setState(prevState=>{
             return {
                 isVisibleDropDown:!prevState.isVisibleDropDown
@@ -40,14 +40,14 @@ class Nav extends Component{
     }
   
     searchSubmit = (type,searchText) =>{
-        console.log(type,searchText);
+        //console.log(type,searchText);
        
         
 
     }
 
     clicked = (action) =>{
-        console.log("UserActions",action)
+        //console.log("UserActions",action)
         switch(action.type){
             case 'LOGOUT':
                 this.props.logout()
