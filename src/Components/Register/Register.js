@@ -7,7 +7,7 @@
  export const Register =(props)=>{
 
  
-    console.log("Ptops to children is",props);
+    //console.log("Ptops to children is",props);
     let formElements=[];
     for(let key in props.signInForm){
         formElements.push({id:key,config:props.signInForm[key]})
@@ -24,7 +24,7 @@
                 message={formElement.config.message}
                 label={formElement.id}/>
             })}
-                <Button type='submit' className='primary'>Register</Button>
+                <Button type='submit' className='primary'>Forgot Password</Button>
                 </form>
                 </div>
             

@@ -1,17 +1,19 @@
 import React,{ Component } from 'react';
 
 
-const asyncComponent = (importComponent) =>{
+const asyncComponent = (object) =>{
+
+    const stateComponent = object.loadingComponent();
     return class extends Component{
         state = {
-            component: null
+            component: stateComponent
         }
 
 
         componentDidMount(){
-            importComponent()
+            object.importComponent()
                             .then(cmp=>{
-                                console.log("Async componet imports",cmp);
+                                //console.log("Async componet imports",cmp);
                                 this.setState({
                                     component: cmp.default
                                 })
@@ -20,10 +22,15 @@ const asyncComponent = (importComponent) =>{
 
         render(){
             const C = this.state.component;
-            console.log("props",this.props);
-            return C ? <C {...this.props} /> :null
+            console.log("props",this.props.hasOwnProperty('computedMatch'),object.props.computedMatch);
+            let props = {...this.props};
+            delete props["computedMatch"];
+            let objectProps = { ...object.props };
+            delete objectProps["computedMatch"];
+            return C ? <C {...this.props} {...object.props} /> :null
         }
 
     }
 }
+
 export default asyncComponent;

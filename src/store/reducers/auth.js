@@ -24,7 +24,7 @@ const initialState = {
 
 
 const signInReducing = (state,action) =>{
-    console.log("SIGN_IN [authReducer]");
+    //console.log("SIGN_IN [authReducer]");
     return updateObj(
         state
         ,
@@ -42,7 +42,7 @@ const signInReducing = (state,action) =>{
 }
 
 const signOutReducing = (state,action) => {
-    console.log("SIGN_OUT [authReducer]");
+    //console.log("SIGN_OUT [authReducer]");
     return initialState;
 }
 const reducer = (state=initialState,action)=>{
@@ -54,11 +54,11 @@ const reducer = (state=initialState,action)=>{
             return signOutReducing(state,action);
 
         case 'RESTORE':
-            console.log("RESTORE [authReducer]");
+            //console.log("RESTORE [authReducer]");
             return initialState;
 
         default:
-            console.log("deafault [authReducer]");
+            //console.log("deafault [authReducer]");
             return state;
         
     }

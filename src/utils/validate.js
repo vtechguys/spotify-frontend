@@ -30,7 +30,7 @@ const validate = {
             }
         }
         if (rule.mustMatchPassword) {
-            console.log("inside");
+            //console.log("inside");
             isValid = value === password && isValid;
             if (!isValid) {
                 message = 'passwords not matched';
@@ -239,7 +239,7 @@ const validate = {
     },
 
     objectArray: function (array) {
-        console.log('validate stringObjectArray');
+        //console.log('validate stringObjectArray');
         var that = this;
         if (!array || array.length < 1 || array.length > 1000 || array.length == undefined) {
             return false;
@@ -265,7 +265,7 @@ const validate = {
 
 
     stringObject: function (obj) {
-        console.log('validate stringObject');
+        //console.log('validate stringObject');
         var that = this;
         if (obj) {
             var allProperty = {
@@ -284,7 +284,7 @@ const validate = {
         }
     },
     complexString: function (string) {
-        console.log('validate string');
+        //console.log('validate string');
         if (string === undefined) {
             return false;
         }
@@ -298,7 +298,7 @@ const validate = {
         }
     },
     idArray: function (array) {
-        console.log('validate idArray');
+        //console.log('validate idArray');
         var that = this;
         if (!array || array.length < 1 || array.length > 30) {
             return false;

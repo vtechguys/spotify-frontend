@@ -26,7 +26,7 @@ const initialState = {
 }
 
 const createProgramReducing = (state,action) =>{
-    console.log("createProgramReducing [programReducer]")
+    //console.log("createProgramReducing [programReducer]")
     return updateObj(
         state,
         {

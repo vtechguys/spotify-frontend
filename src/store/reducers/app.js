@@ -14,7 +14,7 @@ const initialState = {
     loadingState:true
 }
 const webIndexReducing = (state,action) =>{
-    console.log("WEB_INDEX [appReducer]");
+    //console.log("WEB_INDEX [appReducer]");
         let updateObject = {
             token:action.payload.token,
             message:action.payload.message,
@@ -26,7 +26,7 @@ const webIndexReducing = (state,action) =>{
 }
 
 const restoreReducing = (state,action) => {
-    console.log("RESTORE [appReducer]");
+    //console.log("RESTORE [appReducer]");
     let restoreObj = {
         token:'',
         message:action.payload.message,
@@ -56,7 +56,7 @@ const reducer = (state=initialState, action) => {
         case RESET_MESSAGE:
             return resetMessage(state,action);   
         default:
-            console.log("default [appReducer]");
+            //console.log("default [appReducer]");
             return state;
     }
 }

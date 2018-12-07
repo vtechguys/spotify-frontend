@@ -48,7 +48,7 @@ export const signInAsync = (profile) => {
             }
         })
         .catch(error=>{
-            console.log("Error while requesting to ",apiUrls.SIGN_IN,"error",error);
+            //console.log("Error while requesting to ",apiUrls.SIGN_IN,"error",error);
         })
 
 
@@ -82,11 +82,11 @@ export const signOutAsync = () => {
             }
             else{
                 dispatch( {type:'UNSUCCESSFULL',payload: { message: data.message } })
-                console.log("Else case",success);
+                //console.log("Else case",success);
             }
         })
         .catch(error=>{
-            console.log("Error while requesting to ",apiUrls.SIGN_OUT,"error",error);
+            //console.log("Error while requesting to ",apiUrls.SIGN_OUT,"error",error);
         })
 
 
