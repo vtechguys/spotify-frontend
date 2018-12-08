@@ -188,7 +188,10 @@ class Program extends Component{
                     else{
                         //NEVER GOING TO HAPPERN
                         programJSX = (
-                            <h1>Never happening</h1>
+                            <Route 
+                                path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
+                                render={ ()=><h1>Load all programs by default</h1> }
+                            />
                         )
                     }
                 }
