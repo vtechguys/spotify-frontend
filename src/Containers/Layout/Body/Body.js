@@ -1,35 +1,21 @@
-import React, { Component } from 'react';
+//imported Suspense and lazy
+
+import React, { Component,Suspense,lazy} from 'react';
 
 import { Route,Switch } from 'react-router-dom'
 
-// import Loadable from 'react-loadable';
 
 import { reactUrls } from '../../../config/registeredUrls';
 
-// import Program from '../../Program/Program';
-
 import Spinner from '../../../Components/UI/Spinner/Spinner';
+//React now officially supports lazy loading(or also called code splitting)
+//So now no Need To rely on webpacks code Splitting feature
+//No more fuzzy Hocs 
+//lazy takes in a callback function which returns 
+//import results and all this is asynchronous
+const Auth=lazy(()=>import('../../Auth/Auth'));
 
-//Routes in body
-import asyncComponent from '../../../hoc/asyncComponent';
-
-/**
- * ()=>{
-    
-    return import('../../Auth/Auth');//dynamic import
-}
- */
-// const AsyncComponent =(componentToLoad,props)=> asyncComponent({
-//     componentToLoad:()=>import(componentToLoad),
-//     props:props
-// }); 
-// const AsyncAuthComponent = Loadable({
-//     loader:()=>import('../../Auth/Auth'),
-//     loading:()=><h3>loading</h3>
-// })
-
-
-
+const Program=lazy(()=>import('../../Program/Program'));
 
 class Body extends Component{
     render(){
@@ -41,34 +27,23 @@ class Body extends Component{
         return(
             <div>
                 <h1>Body</h1>
+                {/* Suspense is used to specify what 
+                you want to display while routing is 
+            occuring like earlier we use loadable prop
+        to do that now we just have to wrap our 
+    Routes with Suspense Component which
+takes in a prop called fallback where you specify what to
+render while routing is occuring*/}
+                <Suspense fallback={<Spinner/>}>
                 <Switch>
                     <Route 
                         path={reactUrls.AUTH} //'/auth'
-                        component={
-                            asyncComponent(
-                                {
-                                    importComponent:()=>import('../../Auth/Auth'),
-                                    props:authProps,
-                                    loadingComponent:()=>Spinner,
-                                    timeout:10
-                                }
-                            )
-                        }
-                        app = { this.props.app }
-                        auth = { this.props.auth }
+                        render={(props)=><Auth {...authProps} {...props}/>}
+                        
                     />
                     <Route 
                         path={reactUrls.PROGRAM}
-                        component={
-                            asyncComponent(
-                                {
-                                    importComponent:()=>import('../../Program/Program'),
-                                    props:authProps,
-                                    loadingComponent:()=>Spinner,
-                                    timeout:10
-                                }
-                            )
-                        }
+                        render={(props)=><Program {...authProps} {...props}/>}
                     />
                     {/* <Route 
                         path={ reactUrls.TEST } 
@@ -85,7 +60,7 @@ class Body extends Component{
                     /> */}
 
                 </Switch>
-                
+                </Suspense>
                 {/* <Redirect to={reactUrls.ROOT} /> */}
             </div>
         )
