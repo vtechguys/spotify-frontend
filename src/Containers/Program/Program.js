@@ -13,11 +13,13 @@ import { reactUrls } from '../../config/registeredUrls';
 import validate from '../../utils/validate';
 
 
+import { createProgramAsync } from '../../store/actions';
 
-//import nested screens
-import CreateProgram from './CreateProgram/CreateProgram';
-import LoadAllPrograms from './LoadAllPrograms/LoadPrograms'
 
+
+import Spinner from '../../Components/UI/Spinner/Spinner';
+
+import asyncComponent from '../../hoc/asyncComponent';
 
 
 function looselyMatch(array,string){
@@ -38,19 +40,94 @@ function looselyMatch(array,string){
 class Program extends Component{
 
     state = {
-      
+        //Allowed Urls by Program component
         allowedURLS : [
             reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM,
             reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID,
             reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM,
             reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM
-        ]
+        ],
+        //update and create program
+        program:{
+            published:false,
+            courses:[],
+            programId:"",
+            title:"",
+            programCode:"",
+            span:0,//yrs
+            description:"",
+            createdAt:"",
+        },
+        
+
+        loadPrograms:[],//List of program obj
+        selectedProgram:null//should be used for update and loadById
 
     }
 
+
+    clearProgram=()=>{
+        this.setState({
+            program:{
+                published:false,
+                courses:[],
+                programId:"",
+                title:"",
+                programCode:"",
+                span:0,//yrs
+                description:"",
+                createdAt:"",
+            }
+        });
+    }
+
+    fetchAllPrograms=()=>{
+
+
+
+
+    }
+
+    createProgram=(program)=>{
+        //seting state of program
+        this.setState({
+           program:{
+                published:program.published,
+                courses: program.courses,
+                programId: program.programId,
+                title: program.title,
+                programCode: program.programCode,
+                span: program.span,//yrs
+                description: program.description,
+                createdAt:Date(program.createdAt),
+           }
+        });
+        //setting api call
+        this.props.createProgram( program );
+    }
+    // createProgram=(program)=>{
+    //     console.log(program);
+    // }
     render(){
 
+        
+
+
+
         let programJSX = null;
+
+        const createProgramProps = {
+            program:this.state.program,
+            create:this.createProgram
+        }
+
+        const loadAllProgramProps = {
+            fetchAllPrograms: this.fetchAllPrograms,
+
+        }
+
+
+
 
 
         if(looselyMatch(this.state.allowedURLS,this.props.location.pathname)>-1){
@@ -62,11 +139,19 @@ class Program extends Component{
                         programJSX = (
                             <Route 
                                     path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
-                                    render={ ()=><h1>Load all programs by default</h1> }
+                                    component={
+                                        asyncComponent(
+                                            {
+                                                importComponent:()=>import('./LoadAllPrograms/LoadPrograms'),
+                                                props:loadAllProgramProps,
+                                                loadingComponent:()=>Spinner,
+                                                timeout:10                                            }
+                                        ) 
+                                    }
                             />
                         );
                     }
-                    else if(this.props.location.pathname.includes( reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID)){
+                    else if(this.props.location.pathname.includes( reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID )){
                         programJSX = (
                             <Route 
                                     path={ reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID + '/:pid' } 
@@ -77,20 +162,28 @@ class Program extends Component{
                     else if(this.props.location.pathname === ( reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM )){
                         programJSX = (
                             <Route 
-                                    path={ reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM } 
-                                    render={ ()=><h1>createProgram </h1> }
+                                    excat
+                                    path={ reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM }
+                                    component={ 
+                                        asyncComponent(
+                                            {
+                                                importComponent:()=>import('./CreateProgram/CreateProgram'),
+                                                props:createProgramProps,
+                                                loadingComponent:()=>Spinner,
+                                                timeout:10                                            }
+                                        ) 
+                                    }
+                                    // render={ ()=><CreateProgram clear={ this.clearProgram } program={ this.state.program } /> }
                             />
                         );
                     }
                     else if(this.props.location.pathname.includes(reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM)){
-                        console.log("How about this")
                         programJSX = (
                             <Route 
                                     path={ reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM + '/:pid' } 
                                     render={ ()=><h1>UPDATE_PROGRAM </h1> }
                             />
                         );
-                        console.log(programJSX)
                     }
                     else{
                         //NEVER GOING TO HAPPERN
@@ -112,7 +205,7 @@ class Program extends Component{
                     else if( this.props.location.pathname.includes(reactUrls.PROGRAM+reactUrls.LOAD_PROGRAM_BY_ID) ){
                         programJSX = (
                             <Route 
-                                    path={ reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM + '/:pid' } 
+                                    path={ reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID + '/:pid' } 
                                     render={ ()=><h1>Load  programs by program-id</h1> }
                             />
                         );
@@ -127,6 +220,15 @@ class Program extends Component{
                         );
                     }
                 }
+            }
+            else{
+                //Not logged in
+                programJSX = (
+                    <Route 
+                            path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
+                            render={ ()=><h1>Load all programs by default</h1> }
+                    />
+                );
             }
         }
         else{
@@ -143,11 +245,10 @@ class Program extends Component{
 
 
         
-        console.log(programJSX);
 
         return (
             <div>
-                below shold be the nested routing
+                below should be the nested routing
                 <Switch>
                     {
                         programJSX
@@ -158,7 +259,7 @@ class Program extends Component{
                             All cared above if anyhow programJSX===null then this will happen 
                         */
                     }
-                    {/* <Redirect to={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } render={()=><h1>Redirected load</h1>}/> */}
+                    <Redirect to={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } render={()=><h1>Redirected load-programs</h1>}/>
 
                 </Switch>
 
@@ -177,9 +278,9 @@ const mapStateToProps = (state) =>{
 }
 const mapDispatchToProps = (dispatch)=>{
     return {
-        loadProgram:()=>dispatch(  ),
-        toggleProgram:dispatch( ),
-        createProgram:dispatch(  )
+        // loadProgramAsync:()=>dispatch( loadAllPrograms ),
+        //toggleProgram:dispatch( ),
+        createProgram:( program )=>dispatch( createProgramAsync(program) )
     }
 }
-export default connect()(Program);
+export default connect(null,mapDispatchToProps)(Program);

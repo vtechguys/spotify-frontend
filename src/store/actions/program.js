@@ -32,23 +32,23 @@ export const createProgramAsync = (program) =>{
         .post(apiUrls.CREATE_PROGRAM,program)
         .then(success=>{
             var response = success.data;
-            //console.log("Response",response);
+            console.log("Response",response);
             if(response.code===200 && response.success===true){
                 dispatch( resetMessageState(response.message) );
-                dispatch( createProgramSync(response.errors) );
+                dispatch( createProgramSync(response.data) );
 
 
             }
             else{
-                dispatch( resetMessageState(response.message) );
+                 dispatch( resetMessageState(response.message) );
 
-                dispatch( createProgramSync(response.errors ));
+                 dispatch( createProgramSync(response.errors) );
             }
             
             //vfvf
         })
         .catch(error=>{
-            //console.log(`Error occured while API call to ${apiUrls.CREATE_PROGRAM}.Error is ${error}`);
+            console.log(`Error occured while API call to ${apiUrls.CREATE_PROGRAM}.Error is ${error}`);
             dispatch( resetMessageState() );
         })
     }

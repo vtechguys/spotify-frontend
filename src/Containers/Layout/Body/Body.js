@@ -70,6 +70,20 @@ class Body extends Component{
                             )
                         }
                     />
+                    {/* <Route 
+                        path={ reactUrls.TEST } 
+                        component={
+                            asyncComponent(
+                                {
+                                    importComponent:()=>import('../../Test/Test'),
+                                    props:authProps,
+                                    loadingComponent:()=>Spinner,
+                                    timeout:10 
+                                }
+                            )
+                        }    
+                    /> */}
+
                 </Switch>
                 
                 {/* <Redirect to={reactUrls.ROOT} /> */}
