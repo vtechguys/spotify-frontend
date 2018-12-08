@@ -6,7 +6,7 @@ import ListItem from './ListItem/ListItem';
 const ListItems = (props) =>{
     let listItemsJSX = null;
 
-    if(porps.listItems.length>0){
+    if(props.listItems.length>0){
         listItemsJSX = props.listItems.map(listItem=>{
             return (
                 <ListItem
