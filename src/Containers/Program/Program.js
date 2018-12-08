@@ -19,49 +19,146 @@ import CreateProgram from './CreateProgram/CreateProgram';
 import LoadAllPrograms from './LoadAllPrograms/LoadPrograms'
 
 
+
+function looselyMatch(array,string){
+	var indexOfMatch = -1;
+	array.forEach((elem,index)=>{
+			
+		if(string.includes(elem)){
+				indexOfMatch = index;
+		}
+	})
+
+
+	return indexOfMatch
+	
+	
+}
+
 class Program extends Component{
 
     state = {
+      
+        allowedURLS : [
+            reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM,
+            reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID,
+            reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM,
+            reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM
+        ]
 
     }
 
     render(){
 
-        let programJSX = (<h1>Program</h1>);
+        let programJSX = null;
 
-        if(this.props){
 
+        if(looselyMatch(this.state.allowedURLS,this.props.location.pathname)>-1){
+            if( this.props.app.isLogedIn ){
+                console.log( this.props.auth.role,this.props.location.pathname)
+                if( this.props.auth.role === 'superadmin' || this.props.auth.role === 'admin' ){
+                    //ALL ALLOWED URLS ARE ACCESIBLE HERE
+                    if( this.props.location.pathname === ( reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM ) ){
+                        programJSX = (
+                            <Route 
+                                    path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
+                                    render={ ()=><h1>Load all programs by default</h1> }
+                            />
+                        );
+                    }
+                    else if(this.props.location.pathname.includes( reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID)){
+                        programJSX = (
+                            <Route 
+                                    path={ reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID + '/:pid' } 
+                                    render={ ()=><h1>Load  programs by program-id</h1> }
+                            />
+                        );
+                    }
+                    else if(this.props.location.pathname === ( reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM )){
+                        programJSX = (
+                            <Route 
+                                    path={ reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM } 
+                                    render={ ()=><h1>createProgram </h1> }
+                            />
+                        );
+                    }
+                    else if(this.props.location.pathname.includes(reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM)){
+                        console.log("How about this")
+                        programJSX = (
+                            <Route 
+                                    path={ reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM + '/:pid' } 
+                                    render={ ()=><h1>UPDATE_PROGRAM </h1> }
+                            />
+                        );
+                        console.log(programJSX)
+                    }
+                    else{
+                        //NEVER GOING TO HAPPERN
+                        programJSX = (
+                            <h1>Never happening</h1>
+                        )
+                    }
+                }
+                else{
+                    //USER ONLY USER ROUTE
+                    if( this.props.location.pathname === (reactUrls.PROGRAM+reactUrls.LOAD_ALL_PROGRAM) ){
+                        programJSX = (
+                            <Route 
+                                    path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
+                                    render={ ()=><h1>Load all programs by default</h1> }
+                            />
+                        );
+                    }
+                    else if( this.props.location.pathname.includes(reactUrls.PROGRAM+reactUrls.LOAD_PROGRAM_BY_ID) ){
+                        programJSX = (
+                            <Route 
+                                    path={ reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM + '/:pid' } 
+                                    render={ ()=><h1>Load  programs by program-id</h1> }
+                            />
+                        );
+                    }
+                    else{
+                        programJSX = (
+                            //UNAUTHERISED ACCESS
+                            <Route 
+                                    path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM} 
+                                    render={ ()=><h1>Load all programs by program</h1> }
+                            />
+                        );
+                    }
+                }
+            }
         }
-        //console.log("program ",this.props)
+        else{
+            //WRONG URLS NOT SUPPORTED=>EITHER SHOW PAGE NOT FOUND OR LOAD_ALL_PROGRAMS
+            console.log("?????")
+            programJSX = (
+                <Route 
+                        path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
+                        render={ ()=><h1>Load all programs by default</h1> }
+                />
+            );
+        }
 
+
+
+        
+        console.log(programJSX);
 
         return (
             <div>
+                below shold be the nested routing
                 <Switch>
-                    <Route
-                        path={ reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM }
-                        component={ CreateProgram }
-                    />
-                    {/* <Route
-                        path={ reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM }
-                        component={}
-                    /> */}
-                   
-                    <Route 
-                        path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } 
-                        component={ LoadAllPrograms }
-                    />
-                    {/* <Route 
-                        path={ reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID } 
-                        component={}
-                    /> */}
-                    <Redirect 
-                        from={ reactUrls.PROGRAM + '/*'} 
-                        to={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } 
-                        component={ LoadAllPrograms }
-                    />
-
-                    {/* <Redirect to={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } component={LoadAllPrograms}/> */}
+                    {
+                        programJSX
+                    }
+                    {   
+                        /*
+                            Not required to redirect thoug.
+                            All cared above if anyhow programJSX===null then this will happen 
+                        */
+                    }
+                    {/* <Redirect to={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } render={()=><h1>Redirected load</h1>}/> */}
 
                 </Switch>
 
