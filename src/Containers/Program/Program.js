@@ -2,7 +2,7 @@
 //All create,update,delete,load,load-by-id,toggle-program
 
 //React for JSX,Component as Smart Screen
-import React,{ Component } from 'react';
+import React,{ Component} from 'react';
 //Fetch important info from state.
 import { connect } from 'react-redux';
 //Rotring requireds
