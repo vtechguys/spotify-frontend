@@ -14,8 +14,9 @@ export const apiUrls = {
     DELETE_PROGRAM:'/programs/delete-program',
     LOAD_PROGRAMS:'/programs/load-programs',//programIds:[]
     LOAD_PROGRAM_BY_ID:'/programs/load-program-by-id',//programId:"ancd234"
-    LOAD_ALL_PROGRAM:'/programs/load'
-
+    LOAD_ALL_PROGRAM:'/programs/load',
+    
+    
 
 }
 
@@ -37,8 +38,9 @@ export const reactUrls = {
     DELETE_PROGRAM:'/delete',// /:id
     LOAD_PROGRAM:'/load',// loads all program
     LOAD_PROGRAM_BY_ID:'/program',//programs/program/:id
-    LOAD_ALL_PROGRAM:'/load'
-
+    LOAD_ALL_PROGRAM:'/load',
+    //TESTS
+    TEST:'/test',
 
 
 

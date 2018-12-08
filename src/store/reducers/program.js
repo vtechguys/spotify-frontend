@@ -12,15 +12,17 @@ import {
 import { updateObj } from '../utility';
 
 const initialState = {
-    "published": false,
-    "courses": null,//[]
-    "programId": "",
-    "title": "",
-    "programCode": "",
-    "span": 4,
-    "description": "",
-    "errors":null,
-
+    "program":{
+        "published": false,
+        "courses": null,//[]
+        "programId": "",
+        "title": "",
+        "programCode": "",
+        "span": 4,
+        "description": "",
+        "createdAt":null,
+    },
+    "selectedProgram":null,
     "programs":null,
 
 }
@@ -30,7 +32,7 @@ const createProgramReducing = (state,action) =>{
     return updateObj(
         state,
         {
-            "errors":action.errors 
+            "program":action.program
         }
     )
 }
