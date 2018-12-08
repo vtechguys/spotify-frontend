@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import { Route,Switch } from 'react-router-dom'
 
-import Loadable from 'react-loadable';
+// import Loadable from 'react-loadable';
 
 import { reactUrls } from '../../../config/registeredUrls';
 
-import Program from '../../Program/Program';
+// import Program from '../../Program/Program';
 
 import Spinner from '../../../Components/UI/Spinner/Spinner';
 
@@ -59,7 +59,16 @@ class Body extends Component{
                     />
                     <Route 
                         path={reactUrls.PROGRAM}
-                        component={Program}
+                        component={
+                            asyncComponent(
+                                {
+                                    importComponent:()=>import('../../Program/Program'),
+                                    props:authProps,
+                                    loadingComponent:()=>Spinner,
+                                    timeout:10
+                                }
+                            )
+                        }
                     />
                 </Switch>
                 
