@@ -2,7 +2,7 @@
 //All create,update,delete,load,load-by-id,toggle-program
 
 //React for JSX,Component as Smart Screen
-import React,{ Component} from 'react';
+import React,{ Component,lazy,Suspense} from 'react';
 //Fetch important info from state.
 import { connect } from 'react-redux';
 //Rotring requireds
@@ -12,15 +12,8 @@ import { reactUrls } from '../../config/registeredUrls';
 //validate
 import validate from '../../utils/validate';
 
-
+import Spinner  from '../../Components/UI/Spinner/Spinner'
 import { createProgramAsync } from '../../store/actions';
-
-
-
-import Spinner from '../../Components/UI/Spinner/Spinner';
-
-import asyncComponent from '../../hoc/asyncComponent';
-
 
 function looselyMatch(array,string){
 	var indexOfMatch = -1;
@@ -37,6 +30,8 @@ function looselyMatch(array,string){
 	
 }
 
+const LoadPrograms=lazy(()=>import('./LoadAllPrograms/LoadPrograms'));
+const CreateProgram=lazy(()=>import('./CreateProgram/CreateProgram'));
 class Program extends Component{
 
     state = {
@@ -109,28 +104,15 @@ class Program extends Component{
     //     console.log(program);
     // }
     render(){
-
-        
-
-
-
-        let programJSX = null;
-
+       let programJSX = null;
         const createProgramProps = {
             program:this.state.program,
             create:this.createProgram
         }
-
-        const loadAllProgramProps = {
+       const loadAllProgramProps = {
             fetchAllPrograms: this.fetchAllPrograms,
-
-        }
-
-
-
-
-
-        if(looselyMatch(this.state.allowedURLS,this.props.location.pathname)>-1){
+}
+      if(looselyMatch(this.state.allowedURLS,this.props.location.pathname)>-1){
             if( this.props.app.isLogedIn ){
                 console.log( this.props.auth.role,this.props.location.pathname)
                 if( this.props.auth.role === 'superadmin' || this.props.auth.role === 'admin' ){
@@ -139,15 +121,7 @@ class Program extends Component{
                         programJSX = (
                             <Route 
                                     path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
-                                    component={
-                                        asyncComponent(
-                                            {
-                                                importComponent:()=>import('./LoadAllPrograms/LoadPrograms'),
-                                                props:loadAllProgramProps,
-                                                loadingComponent:()=>Spinner,
-                                                timeout:10                                            }
-                                        ) 
-                                    }
+                                    render={(props)=><LoadPrograms {...loadAllProgramProps} {...props}/>}
                             />
                         );
                     }
@@ -164,15 +138,7 @@ class Program extends Component{
                             <Route 
                                     excat
                                     path={ reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM }
-                                    component={ 
-                                        asyncComponent(
-                                            {
-                                                importComponent:()=>import('./CreateProgram/CreateProgram'),
-                                                props:createProgramProps,
-                                                loadingComponent:()=>Spinner,
-                                                timeout:10                                            }
-                                        ) 
-                                    }
+                                    render={(props)=><CreateProgram {...createProgramProps} {...props}/>}
                                     // render={ ()=><CreateProgram clear={ this.clearProgram } program={ this.state.program } /> }
                             />
                         );
@@ -244,14 +210,10 @@ class Program extends Component{
                 />
             );
         }
-
-
-
-        
-
-        return (
+       return (
             <div>
                 below should be the nested routing
+                <Suspense fallback={<Spinner/>}>
                 <Switch>
                     {
                         programJSX
@@ -265,7 +227,7 @@ class Program extends Component{
                     <Redirect to={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } render={()=><h1>Redirected load-programs</h1>}/>
 
                 </Switch>
-
+                </Suspense>
             </div>
         );
     }
