@@ -65,8 +65,7 @@ class App extends Component {
           
            <Auth/>
       </BrowserRouter>
-      
-    );
+  );
   }
 }
 
