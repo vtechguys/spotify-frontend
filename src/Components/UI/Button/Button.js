@@ -1,8 +1,9 @@
 import React from 'react';
 import './Button.css';
 const Button=(props)=>{
-    
-return (<button onClick={props.clicked} type={props.type} className={[["btn",props.className].join('-'),"btn","btn-block"].join(" ")}>
+ console.log(props.isValid);   
+return (<button type={props.btnType} onClick={props.clicked} className="Button" disabled={props.isValid}>
 {props.children}</button>
 )}
+
 export default Button;

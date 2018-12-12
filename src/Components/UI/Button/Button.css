@@ -1,3 +1,18 @@
-
+.Button{
+    border:2px groove green;
+    background:lightcyan;
+    padding:1rem;
+    border-radius: 4px;
+    font:inherit;
+    font-weight:bold;
+    cursor: pointer;
+}
+.Button__wrapper{
+    text-align:center;
+    padding:1rem;
+}
+.Button:hover{
+background:white;
+}
 
 

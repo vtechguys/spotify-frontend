@@ -5,14 +5,14 @@ import BackDrop from '../BackDrop/BackDrop';
 class Modal extends React.Component{
    shouldComponentUpdate(nextProps,nextState)
    {
-           console.log(nextProps,this.props);
+           //console.log(nextProps,this.props);
            return nextProps.show!==this.props.show || nextProps.children!==this.props.children
    }
    componentWillUpdate(){
-console.log("inside component will update")
+//console.log("inside component will update")
    }
         render(){     
-                console.log(this.props.show)
+                //console.log(this.props.show)
 return (<Aux><BackDrop show={this.props.show} clicked={this.props.modalClose}/>
        { this.props.show?<div className={classes.Modal}>
         {this.props.children}
