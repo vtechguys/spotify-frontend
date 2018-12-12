@@ -6,13 +6,13 @@ const ListItem = (props)=>{
     if(props.image){
         listItemImageJSX = (
             <div>
-                <img src={porps.image} alt={props.imageAlt} />
+                <img src={props.image} alt={props.imageAlt} />
             </div>
         )
     }
 
     let listItemJSX = null;
-    if(porps.title){
+    if(props.title){
         listItemJSX = (
             <div onClick={()=>props.click(props.programId)}>
                 { listItemImageJSX }
@@ -29,7 +29,7 @@ const ListItem = (props)=>{
                         }</p>
                         <p>
                             {
-                                porps.contentRight
+                                props.contentRight
                             }
                         </p>
                     </div>
