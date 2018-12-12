@@ -1,39 +1,29 @@
-.form-element{
-    margin:1.2rem;
-    align-items: center;
+.form__element{
+    margin:1rem 0 0 0;
+    width:100%;
+}
+.form__element--input{
+        width:100%;
+        padding:1rem 1rem;
+        font-size: 1.5rem;
+        border:2px groove gainsboro;
+        border-radius:4px;
 }
 
-.Label{    
-    font-weight: bold;
-    text-transform: uppercase;
-
+.form__element--input--error{
+    border-color: red;
 }
-.Invalid{
-    background:lightcoral;
-    border:2px solid red;
+.form__element--error{
+  font-weight:bold;
+  color:red;
+  margin:0 0 0.5rem 0;
 }
-.Input{
-    width:100%;
-    font-size:1.5rem;
-    margin-top:1rem;
-    margin-bottom:1rem;
-    padding:10px;
-    border:2px solid darkred;
-    border-radius: 2px;
-}
-.Dropdown{
-    width:100%;
-    border:2px solid darkred;
-    font:inherit;
-    padding:10px;
-}
-.Dropdown:focus{
-    outline: none;
-}
-.Input:focus{
-    outline:none;
-}
-.ValidateError{
-    font-size:28px;
-    color:maroon;
-}
+.form__element--label{
+        display:block;
+        font-size: 21px;
+        margin:0 0 0.4rem 0;
+        font-weight:bold;
+    }
+.form__element--label::after{
+        content:":";
+    }

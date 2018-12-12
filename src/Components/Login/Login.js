@@ -1,35 +1,61 @@
-
 import React,{Component} from 'react'
-import {Route,Link} from 'react-router-dom'
-import './Login.css'
-import Input from '../UI/Input/Input'
-import Button from '../UI/Button/Button'
+import {NavLink} from 'react-router-dom'
+import {loginForm, loginFormValidations} from '../../config/formsConfig';
+import {Formik} from 'formik';
+import Input from '../UI/Input/Input';
+import Button from '../UI/Button/Button';
+import nprogress from 'nprogress';
 export const Login =(props)=>{
     let formElements=[];
-    for(let key in props.loginForm)
+    let formElementKeys={};
+    for(let key in loginForm)
     {
-        formElements.push({id:key,config:props.loginForm[key]})
+        formElementKeys[key]='';
+          formElements.push({id:key,config:loginForm[key]})
     }
-   
-        return(
-            <div className='col-md-6 Login'>
-            <h1>Login</h1>
-            <form className="form"  onSubmit={(event)=>props.submit(event,"loginForm")}>
-            {formElements.map((formElement)=>{
-                return <Input label={formElement.id} key={formElement.id} elementType={formElement.config.elementType} 
-                value={formElement.value}
-                elementConfig={formElement.config.elementConfig}
-                invalid={!formElement.config.valid}
-                touched={formElement.config.touched}
-                message={formElement.config.message}
-                changed={(event)=>props.changed(event,formElement.id,'loginForm')}/>
-            })
-         }
-         <Button type='submit' className='primary'>Login</Button>
-         </form>
+    return(
+        <React.Fragment>
+        <h1 className="form__title">Login Here</h1>
+           <Formik initialValues={formElementKeys}
+            validate={(values)=>loginFormValidations(values)}
+            onSubmit={(values, { setSubmitting }) => {
+                nprogress.start();
+                setTimeout(() => {
+                  alert(JSON.stringify(values, null, 2));
+                  nprogress.done();
+                  setSubmitting(false);
+                }, 400);
+              }}>
+            {( {values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,})=>(<form className="form"  onSubmit={handleSubmit}>
+                {formElements.map((formElement)=>{
+                    return <Input label={formElement.config.label || 
+                        formElement.id} 
+                    key={formElement.id} 
+                    elementType={formElement.config.elementType} 
+                    elementConfig={formElement.config.elementConfig}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values[formElement.config.elementConfig.name]}
+                    errors={errors}
+                    touched={touched}                   
+                    />
+                })
+             }
+             <div className="Button__wrapper">
+             <Button btnType='submit' isValid={isSubmitting}>Login</Button>
+             </div>
+             <div className="switchLink">
+             <NavLink to="/register">switch To Register?</NavLink>
+             </div>
+             </form>)}
         
-            </div>
-        )
-    
-}
+         </Formik>
+         </React.Fragment>
+         )}
 
