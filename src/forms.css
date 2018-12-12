@@ -1,0 +1,27 @@
+.form{
+    width:90%;
+    margin:2rem auto;
+}
+@media(min-width:892px){
+.form{
+    width:35%;
+}
+}
+.form__title{
+    color:darkmagenta;
+    text-align: center;
+}
+
+.switchLink{
+    text-align:center;
+}
+.switchLink a{
+font-weight:bold;
+color:brown;
+text-decoration: none;
+font-size:24px;
+}
+.switchLink a:hover,a:active{
+    color:green;
+    
+}

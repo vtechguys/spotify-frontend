@@ -1,5 +1,6 @@
 import {
-    WEB_INDEX
+    WEB_INDEX,
+    RESET_MESSAGE
 } from './actionTypes';
 
 import API from '../../axiosRoot';
@@ -32,9 +33,9 @@ export const webIndexAsync = (token) =>{
         .then(success=>{
             let data = success.data;
             if(data.code===200 && data.success===true){
-                console.log("previous token ",storage.get("token"));
+                //console.log("previous token ",storage.get("token"));
                 storage.store("token",data.data.profile.sessionId);
-                console.log("new token ",storage.get("token"));
+                //console.log("new token ",storage.get("token"));
                 let message = data.message;
                 let isLogedIn = true;
                 let profile = data.data.profile
@@ -45,13 +46,25 @@ export const webIndexAsync = (token) =>{
                 let message = data.message;
                 let token = "";
                 let isLogedIn = false;
-                storage.clear();
                 dispatch(webIndexSync( token,message,isLogedIn,false));
             }
         })
         .catch(error=>{
-            console.log("Error Occured");
-            throw error;
+            //console.log("Error Occured",error);
+
+            let message = "Some error has occured.Please Confirm your Interent connection.";
+            let token = "";
+            let isLogedIn = false;
+            dispatch(webIndexSync( token,message,isLogedIn,false));      
         })
    } 
+}
+
+export const resetMessageState = (message) =>{//toggle is Message visible and reset to incomming Message else ""
+    return {
+        type:RESET_MESSAGE,
+        payload:{
+            message:message||"Please Make sure you are connected to network."
+        }
+    }
 }

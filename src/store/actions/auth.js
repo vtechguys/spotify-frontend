@@ -4,7 +4,7 @@ import {
 } from './actionTypes';
 
 //API ROOT CALL
-import API from '../../axiosRoot';
+import API from '../../axiosRoot';//Make it without auth header
 //API_URLS REGISTERED
 import { apiUrls } from '../../config/registeredUrls';
 
@@ -12,7 +12,6 @@ import { apiUrls } from '../../config/registeredUrls';
 import uuid from 'uuid/v4';
 //Save to localhost
 import storage from '../../utils/localStorage';
-
 
 
 
@@ -49,7 +48,7 @@ export const signInAsync = (profile) => {
             }
         })
         .catch(error=>{
-            console.log("Error while requesting to ",apiUrls.SIGN_IN,"error",error);
+            //console.log("Error while requesting to ",apiUrls.SIGN_IN,"error",error);
         })
 
 
@@ -83,11 +82,11 @@ export const signOutAsync = () => {
             }
             else{
                 dispatch( {type:'UNSUCCESSFULL',payload: { message: data.message } })
-                console.log("Else case",success);
+                //console.log("Else case",success);
             }
         })
         .catch(error=>{
-            console.log("Error while requesting to ",apiUrls.SIGN_OUT,"error",error);
+            //console.log("Error while requesting to ",apiUrls.SIGN_OUT,"error",error);
         })
 
 

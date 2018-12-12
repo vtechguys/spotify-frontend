@@ -1,7 +1,8 @@
 //configuration to app.
 
 import {
-    WEB_INDEX
+    WEB_INDEX,
+    RESET_MESSAGE
 } from '../actions/actionTypes';
 
 import { updateObj } from '../utility';
@@ -13,7 +14,7 @@ const initialState = {
     loadingState:false
 }
 const webIndexReducing = (state,action) =>{
-    console.log("WEB_INDEX [appReducer]");
+    //console.log("WEB_INDEX [appReducer]");
         let updateObject = {
             token:action.payload.token,
             message:action.payload.message,
@@ -25,7 +26,7 @@ const webIndexReducing = (state,action) =>{
 }
 
 const restoreReducing = (state,action) => {
-    console.log("RESTORE [appReducer]");
+    //console.log("RESTORE [appReducer]");
     let restoreObj = {
         token:'',
         message:action.payload.message,
@@ -35,9 +36,9 @@ const restoreReducing = (state,action) => {
     return updateObj(state,restoreObj);
 }
 
-const unsuccessfull = (state,action)=>{
+const resetMessage = (state,action)=>{
     let unsuccessfullObj = {
-        message:action.payload.message || 'Please Check your Internet Connection.'
+        message:action.payload.message
 
     }
     return updateObj(state,unsuccessfullObj);
@@ -52,14 +53,10 @@ const reducer = (state=initialState, action) => {
 
         case WEB_INDEX:
             return webIndexReducing(state,action);
-            
-
-        case 'RESTORE':
-             return restoreReducing(state,action);
-        case 'UNSUCCESSFULL'://unique to this only nowhere to be used
-            return unsuccessfull(state,action);   
+        case RESET_MESSAGE:
+            return resetMessage(state,action);   
         default:
-            console.log("default [appReducer]");
+            //console.log("default [appReducer]");
             return state;
     }
 }

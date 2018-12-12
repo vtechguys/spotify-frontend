@@ -18,9 +18,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const logger = (store) =>{
     return (next) =>{
         return (action) => {
-            console.log("[Middleware] Action Dispatched ",action);
+            //console.log("[Middleware] Action Dispatched ",action);
             const result = next(action);
-            console.log( "State after Action Dispatch " + action.type + " state is ",store.getState() );
+            //console.log( "State after Action Dispatch " + action.type + " state is ",store.getState() );
             return result;
         }
     }

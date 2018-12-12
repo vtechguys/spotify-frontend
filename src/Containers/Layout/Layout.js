@@ -53,7 +53,6 @@ class Layout extends Component{
                           companyInfo = {this.props.companyInfo}
                           appName = { this.props.appName }
                           appLogo = {this.props.appLogo}
-
                           auth = { this.props.auth }
                           app = { this.props.app }
                     >

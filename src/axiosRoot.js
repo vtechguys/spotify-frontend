@@ -12,20 +12,20 @@ const instance = axios.create({
 
 
 instance.interceptors.request.use(config=>{
-    console.log("Trying to config interceptors ",config)
-    const token = storage.get('token');
-    
+    //console.log("Trying to config interceptors ",config)
+    const token = storage.get('token') || "";
+    //console.log("Intercepter token fetching ",token);
     if(token){
         config.headers.common['Authorization'] = 'token '  + token;
     }
         
      
     
-    console.log("request middleware/intercepters configurations",config);
+    //console.log("request middleware/intercepters configurations",config);
 
     return config;
 },error=>{
-    console.log("axios request interceptor error ",error);
+    //console.log("axios request interceptor error ",error);
     alert("Oops! Something went wrong");
     return error;
 });
