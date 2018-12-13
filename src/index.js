@@ -26,17 +26,9 @@ const logger = (store) =>{
     }
   
 }
-
-
-
-
 //Passing redux as middleware
 const store = configureStore(composeEnhancers(applyMiddleware(logger, thunk)));
-
-
-
 ReactDOM.render(
-
 <Provider store={store}>
     <App appName="Questioner"/>
 </Provider>

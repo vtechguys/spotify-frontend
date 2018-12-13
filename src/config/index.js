@@ -1,5 +1,5 @@
 const config = {
-    'BASE_URL':'http://localhost:5500/',//'http://immense-badlands-53394.herokuapp.com/'
+    'BASE_URL':'http://immense-badlands-53394.herokuapp.com/',
     'COMPANY_NAME':'Company Name',
     'COMPANY_LOGO':'Company Logo',
     'COMPANY_INFO':'Company Info',

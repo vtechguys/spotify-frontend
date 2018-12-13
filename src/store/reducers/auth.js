@@ -45,6 +45,9 @@ const signOutReducing = (state,action) => {
     //console.log("SIGN_OUT [authReducer]");
     return initialState;
 }
+const signUpReducing=(state,action)=>{
+return updateObj(state,{isRegisterSuccessful:action.payload.isSuccess,message:action.payload.message})
+}
 const reducer = (state=initialState,action)=>{
     switch(action.type){
         case SIGN_IN:
@@ -52,7 +55,8 @@ const reducer = (state=initialState,action)=>{
 
         case SIGN_OUT:
             return signOutReducing(state,action);
-
+         case SIGN_UP:
+         return signUpReducing(state,action)
         case 'RESTORE':
             //console.log("RESTORE [authReducer]");
             return initialState;

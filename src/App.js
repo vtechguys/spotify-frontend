@@ -7,7 +7,7 @@ import './forms.css';
 // import Register from './Components/UI/Register/Register'
 // import ForgotPassword from './Components/UI/ForgotPassword/ForgotPassword'
 import './App.css';
-
+import {Route,Redirect,Switch} from 'react-router-dom';
 
 import { connect } from 'react-redux';
 //Import actions creators
@@ -24,7 +24,6 @@ import storage from './utils/localStorage';
 //Router
 import { BrowserRouter } from 'react-router-dom';
 
-import config from './config';
 import Auth from './Containers/Auth/Auth';
 
 class App extends Component {
@@ -53,6 +52,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <BrowserRouter>
 
@@ -63,8 +63,11 @@ class App extends Component {
             companyLogo={config.COMPANY_LOGO} 
             companyName={config.COMPANY_NAME}
             ></Layout>*/}
-          
-           <Auth/>
+          {this.props.isLogedIn?<Switch>
+      <Route exact path='/' render={()=><h1>Home</h1>}/>
+      <Redirect to="/"/></Switch>:<Auth/>
+        }
+           
       </BrowserRouter>
   );
   }
@@ -73,8 +76,7 @@ class App extends Component {
 const mapStateToProps = (state) =>{
   return {
     isLogedIn:state.app.isLogedIn
-
-  }
+}
 }
 const mapDispatchToProps = (dispatch) =>{
   return {
