@@ -21,9 +21,7 @@ export const webIndexSync = (token,message,isLogedIn,loadingState) => {
             isLogedIn:isLogedIn,
             loadingState:loadingState
         }
-        
-
-    }
+}
 }
 //Asunc call
 export const webIndexAsync = (token) =>{

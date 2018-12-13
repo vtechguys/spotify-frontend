@@ -1,6 +1,31 @@
 export const signInForm={
     /* if label is not specified than keys will
     be the label of input */
+    firstName:{
+     elementType:'input',
+     elementConfig:{
+         type:'text',
+         name:'firstName',
+         placeholder:"Enter first name"
+     }
+    },
+    lastName:{
+        elementType:'input',
+        elementConfig:{
+            type:'text',
+            name:"lastName",
+            placeholder:"Enter last Name"
+        }
+    },
+    dob:{
+        elementType:'input',
+        elementConfig:{
+            type:'text',
+            name:"dob",
+            placeholder:"Enter dob"
+        }
+    },
+
     email: {
         elementType: 'input',
         elementConfig: {

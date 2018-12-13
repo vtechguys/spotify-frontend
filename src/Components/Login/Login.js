@@ -5,7 +5,9 @@ import {Formik} from 'formik';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import nprogress from 'nprogress';
-export const Login =(props)=>{
+import {signInAsync} from '../../store/actions/auth';
+import {connect} from 'react-redux';
+const Login =(props)=>{
     let formElements=[];
     let formElementKeys={};
     for(let key in loginForm)
@@ -18,13 +20,12 @@ export const Login =(props)=>{
         <h1 className="form__title">Login Here</h1>
            <Formik initialValues={formElementKeys}
             validate={(values)=>loginFormValidations(values)}
-            onSubmit={(values, { setSubmitting }) => {
-                nprogress.start();
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  nprogress.done();
-                  setSubmitting(false);
-                }, 400);
+            onSubmit={async (values, { setSubmitting }) => {
+                console.log("start");
+                const signIn=await props.signIn(values);
+                setSubmitting(false);
+                console.log("end");
+                
               }}>
             {( {values,
                 errors,
@@ -56,5 +57,10 @@ export const Login =(props)=>{
              </form>)}
         </Formik>
          </React.Fragment>
-         )}
-
+         )};
+const mapDispatchToProps=(dispatch)=>{
+return {
+    'signIn':(profile)=>dispatch(signInAsync(profile))
+}
+}         
+export default connect(null,mapDispatchToProps)(Login);

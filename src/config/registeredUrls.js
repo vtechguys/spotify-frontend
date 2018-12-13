@@ -24,8 +24,6 @@ export const apiUrls = {
 export const reactUrls = {
 
     ROOT:'/',
-
-
     AUTH:'/auth',
     SIGN_IN:'/login',
     SIGN_UP:'/register',

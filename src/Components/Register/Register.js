@@ -4,7 +4,9 @@ import React,{Component} from 'react';
  import Button from '../UI/Button/Button'
  import {Formik} from 'formik';
  import { signInForm, signInFormValidations } from '../../config/formsConfig';
-export const Register =(props)=>{
+import {connect} from 'react-redux';
+import {signInAsync} from '../../store/actions/auth';
+const Register =(props)=>{
     let formElements=[];
     let formKeys={};
     for(let key in signInForm){
@@ -17,11 +19,9 @@ export const Register =(props)=>{
         <Formik
             initialValues={formKeys}
             validate={(values)=>signInFormValidations(values)}
-            onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 400);
+            onSubmit={async (values, { setSubmitting }) => {
+                const signUp=await props.signUp(values);
+                setSubmitting(false);
               }}>
             {({values,
                 errors,
@@ -44,7 +44,7 @@ export const Register =(props)=>{
                         touched={touched}/>
                     })}
                     <div className="Button__wrapper">
-                  <Button type='submit' isValid={isSubmitting}>Register</Button>
+                  <Button btnType='submit' isValid={isSubmitting}>Register</Button>
                   </div>
                   <div className="switchLink">
                   <NavLink to="/login">Switch To login?</NavLink>
@@ -55,3 +55,14 @@ export const Register =(props)=>{
                 </Formik>
                 </React.Fragment>
                 )}
+ const mapDispatchToProps=(dispatch)=>{
+ return {
+     'signUp':(profile)=>dispatch(signInAsync(profile))
+ }
+ } 
+ const mapStateToProps=(state)=>{
+     return {
+         'signUp':state.auth
+     }
+ }              
+export default connect(null,mapDispatchToProps)(Register)
