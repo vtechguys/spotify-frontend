@@ -65,13 +65,16 @@ return {
 }
 }
 export const signUpAsync=(profile)=>{
+    console.log(profile);
+    console.log(apiUrls.SIGN_UP);
 return (dispatch)=>{
     API.post(apiUrls.SIGN_UP,profile).then((success)=>{
         var data=success.data;
         if(data.code===200 && data.success===true)
-        {
+        {console.log(success);
           dispatch(signUpSync({isSuccess:true,message:data.message}))
         }else{
+          console.log(success);  
          dispatch(signUpSync({isSuccess:false,message:data.message}))   
         }
     }).catch((err)=>{

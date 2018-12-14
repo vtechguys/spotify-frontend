@@ -5,14 +5,25 @@ import React,{Component} from 'react';
  import {Formik} from 'formik';
  import { signInForm, signInFormValidations } from '../../config/formsConfig';
 import {connect} from 'react-redux';
-import {signInAsync} from '../../store/actions/auth';
-const Register =(props)=>{
-    let formElements=[];
+import {signUpAsync} from '../../store/actions/auth';
+import Modal from '../UI/Modal/Modal';
+class Register extends React.Component{
+    state={
+        show:false
+    }
+    modalHandler=()=>{
+       this.setState((prevState)=>{
+           return {show:!prevState.show}
+       })
+    }
+    render(){
+let formElements=[];
     let formKeys={};
     for(let key in signInForm){
         formKeys[key]='';
         formElements.push({id:key,config:signInForm[key]})
-    }    
+    }  
+    console.log(this.props,this.state);  
     return(
         <React.Fragment>
         <h1 className="form__title">Register Here</h1>
@@ -20,8 +31,9 @@ const Register =(props)=>{
             initialValues={formKeys}
             validate={(values)=>signInFormValidations(values)}
             onSubmit={async (values, { setSubmitting }) => {
-                const signUp=await props.signUp(values);
+                const signUp=await this.props.signUp(values);
                 setSubmitting(false);
+                this.modalHandler();
               }}>
             {({values,
                 errors,
@@ -43,6 +55,14 @@ const Register =(props)=>{
                         errors={errors}
                         touched={touched}/>
                     })}
+                    {
+                this.props.signUpState.isRegisterSuccessful?<Modal 
+                show={this.state.show} modalHandler={this.modalHandler}>
+                {this.props.signUpState.message}
+                </Modal>:!!this.props.signUpState.message?
+                    <Modal show={this.state.show} modalHandler={this.modalHandler}>
+                    {this.props.signUpState.message}</Modal>:null
+            }
                     <div className="Button__wrapper">
                   <Button btnType='submit' isValid={isSubmitting}>Register</Button>
                   </div>
@@ -55,14 +75,15 @@ const Register =(props)=>{
                 </Formik>
                 </React.Fragment>
                 )}
+                }
  const mapDispatchToProps=(dispatch)=>{
  return {
-     'signUp':(profile)=>dispatch(signInAsync(profile))
+     'signUp':(profile)=>dispatch(signUpAsync(profile))
  }
  } 
  const mapStateToProps=(state)=>{
      return {
-         'signUp':state.auth
+         'signUpState':state.auth
      }
  }              
-export default connect(null,mapDispatchToProps)(Register)
+export default connect(mapStateToProps,mapDispatchToProps)(Register)

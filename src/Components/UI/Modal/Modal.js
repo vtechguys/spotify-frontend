@@ -1,6 +1,6 @@
 import React from 'react';
-import Aux from '../../../hoc/Aux';
-import classes from './Modal.css'
+import Aux from '../../../hoc/Auxilary';
+import './Modal.css'
 import BackDrop from '../BackDrop/BackDrop';
 class Modal extends React.Component{
    shouldComponentUpdate(nextProps,nextState)
@@ -13,8 +13,8 @@ class Modal extends React.Component{
    }
         render(){     
                 //console.log(this.props.show)
-return (<Aux><BackDrop show={this.props.show} clicked={this.props.modalClose}/>
-       { this.props.show?<div className={classes.Modal}>
+return (<Aux><BackDrop show={this.props.show} clicked={this.props.modalHandler}/>
+       { this.props.show?<div className="Modal">
         {this.props.children}
 </div>:null}
 </Aux>)
