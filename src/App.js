@@ -3,6 +3,7 @@ import 'nprogress/nprogress.css';
 import nprogress from 'nprogress';
 // import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import './forms.css';
+
 // import Login from './Components/UI/Login/Login'
 // import Register from './Components/UI/Register/Register'
 // import ForgotPassword from './Components/UI/ForgotPassword/ForgotPassword'
