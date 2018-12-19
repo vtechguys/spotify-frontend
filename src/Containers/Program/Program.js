@@ -95,9 +95,7 @@ class Program extends Component{
         //setting api call
         this.props.createProgram( program );
     }
-    // createProgram=(program)=>{
-    //     console.log(program);
-    // }
+   
     render(){
        let programJSX = null;
         const createProgramProps = {
@@ -198,10 +196,10 @@ class Program extends Component{
         else{
             //WRONG URLS NOT SUPPORTED=>EITHER SHOW PAGE NOT FOUND OR LOAD_ALL_PROGRAMS
             console.log("?????")
-            programJSX = (
-                <Route 
-                        path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
-                        render={ ()=><h1>Load all programs by default</h1> }
+            programJSX =(
+                <Route path={ reactUrls.PAGE_NOT_FOUND } 
+                // component={Register}a
+                render={()=><h1>PAGE_NOT_FOUND</h1>}
                 />
             );
         }
@@ -219,7 +217,7 @@ class Program extends Component{
                             All cared above if anyhow programJSX===null then this will happen 
                         */
                     }
-                    <Redirect to={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } render={()=><h1>Redirected load-programs</h1>}/>
+                    {/* <Redirect to={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } render={()=><h1>Redirected load-programs</h1>}/> */}
 
                 </Switch>
                 </Suspense>
