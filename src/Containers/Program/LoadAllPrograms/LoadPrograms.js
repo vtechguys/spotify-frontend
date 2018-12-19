@@ -1,5 +1,10 @@
 import React from 'react';
+import ListItems from './../../../Components/UI/ListItems/ListItems';
 const loadPrograms = (props) =>{
-    return (<h3>list of cprograms</h3>)
+    return (
+        <div>
+            <ListItems click={ props.programClickHandler } listItems={ props.programs }/>
+        </div>
+    )
 }
 export default loadPrograms;

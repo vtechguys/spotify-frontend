@@ -21,6 +21,13 @@ import { looselyMatch } from '../../utils';
 const LoadPrograms=lazy(()=>import('./LoadAllPrograms/LoadPrograms'));
 const CreateProgram=lazy(()=>import('./CreateProgram/CreateProgram'));
 class Program extends Component{
+    constructor(props){
+        super(props);
+        
+
+        //function bind
+        // this.programClickHandler = this.programClickHandler.bind(this);
+    }
 
     allowedURLS =  [
         reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM,
@@ -30,14 +37,6 @@ class Program extends Component{
     ];
 
     state = {
-        //Allowed Urls by Program component
-        // allowedURLS : [
-        //     reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM,
-        //     reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID,
-        //     reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM,
-        //     reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM
-        // ],
-        //update and create program
         program:{
             published:false,
             courses:[],
@@ -50,7 +49,7 @@ class Program extends Component{
         },
         
 
-        loadPrograms:[],//List of program obj
+        loadPrograms:[{ title:"BTECH",programCode:"BTECH 27",description:"Btech is program.",courses:[{},{}],programId:"p12Wer9c0hj",span:4,published:true,createdAt:""},{ title:"BSE",programCode:"BSE 43",description:"BSE is program.",courses:[{},{}],programId:"p12Wer900hj",span:4,published:true,createdAt:""}],//List of program obj
         selectedProgram:null//should be used for update and loadById
 
     }
@@ -77,7 +76,9 @@ class Program extends Component{
 
 
     }
-
+    programClickHandler=(programId)=>{
+        console.log(programId);
+    }
     createProgram=(program)=>{
         //seting state of program
         this.setState({
@@ -102,9 +103,12 @@ class Program extends Component{
             program:this.state.program,
             create:this.createProgram
         }
-       const loadAllProgramProps = {
-            fetchAllPrograms: this.fetchAllPrograms,
-}
+    //    const loadAllProgramProps = {
+    //         // fetchAllPrograms: this.fetchAllPrograms,
+    //         programs:this.state.loadPrograms,
+    //         // programClickHandler:(event)=>this.program(event,id)
+    //     }
+    console.log(this.props)
       if(looselyMatch(this.allowedURLS,this.props.location.pathname)>-1){
             if( this.props.app.isLogedIn ){
                 console.log( this.props.auth.role,this.props.location.pathname)
@@ -114,7 +118,11 @@ class Program extends Component{
                         programJSX = (
                             <Route 
                                     path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
-                                    render={(props)=><LoadPrograms {...loadAllProgramProps} {...props}/>}
+                                    render={(props)=><LoadPrograms
+                                        // {...loadAllProgramProps}
+                                        {...props} programs={this.state.loadPrograms} 
+                                        programClickHandler={this.programClickHandler}/>
+                                    }
                             />
                         );
                     }
@@ -211,14 +219,6 @@ class Program extends Component{
                     {
                         programJSX
                     }
-                    {   
-                        /*
-                            Not required to redirect thoug.
-                            All cared above if anyhow programJSX===null then this will happen 
-                        */
-                    }
-                    {/* <Redirect to={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM } render={()=><h1>Redirected load-programs</h1>}/> */}
-
                 </Switch>
                 </Suspense>
             </div>
