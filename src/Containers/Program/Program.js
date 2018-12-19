@@ -15,33 +15,28 @@ import validate from '../../utils/validate';
 import Spinner  from '../../Components/UI/Spinner/Spinner'
 import { createProgramAsync } from '../../store/actions';
 
-function looselyMatch(array,string){
-	var indexOfMatch = -1;
-	array.forEach((elem,index)=>{
-			
-		if(string.includes(elem)){
-				indexOfMatch = index;
-		}
-	})
+import { looselyMatch } from '../../utils';
 
-
-	return indexOfMatch
-	
-	
-}
 
 const LoadPrograms=lazy(()=>import('./LoadAllPrograms/LoadPrograms'));
 const CreateProgram=lazy(()=>import('./CreateProgram/CreateProgram'));
 class Program extends Component{
 
+    allowedURLS =  [
+        reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM,
+        reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID,
+        reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM,
+        reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM
+    ];
+
     state = {
         //Allowed Urls by Program component
-        allowedURLS : [
-            reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM,
-            reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID,
-            reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM,
-            reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM
-        ],
+        // allowedURLS : [
+        //     reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM,
+        //     reactUrls.PROGRAM + reactUrls.LOAD_PROGRAM_BY_ID,
+        //     reactUrls.PROGRAM + reactUrls.CREATE_PROGRAM,
+        //     reactUrls.PROGRAM + reactUrls.UPDATE_PROGRAM
+        // ],
         //update and create program
         program:{
             published:false,
@@ -112,7 +107,7 @@ class Program extends Component{
        const loadAllProgramProps = {
             fetchAllPrograms: this.fetchAllPrograms,
 }
-      if(looselyMatch(this.state.allowedURLS,this.props.location.pathname)>-1){
+      if(looselyMatch(this.allowedURLS,this.props.location.pathname)>-1){
             if( this.props.app.isLogedIn ){
                 console.log( this.props.auth.role,this.props.location.pathname)
                 if( this.props.auth.role === 'superadmin' || this.props.auth.role === 'admin' ){
