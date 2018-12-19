@@ -74,7 +74,7 @@ return errors;
 
 //PROGRAM SCREEN FORM
 
-
+//Create Program
 export const programCreateForm = {
     title:{
         elementType: 'input',
@@ -115,7 +115,6 @@ export const programCreateForm = {
 
 
 };
-
 export const programCreateFormValidation=(info)=>{
     let errors = {};
     if(info && Object.keys(info).length>0){
@@ -168,8 +167,7 @@ export const programCreateFormValidation=(info)=>{
     
 }
 
-
-
+//Edit/Update Form
 export const programEditForm = {
 
 };
@@ -206,9 +204,10 @@ export const programEditFormValidation=(info)=>{
 
 
 
+//QUESTION SCREEN
 
 
-
+//Question Create
 export const validateQuestionInput=(info)=>{
 
     const errors= {}
@@ -291,7 +290,7 @@ export const validateQuestionInput=(info)=>{
     return errors; 
     
 }
-
+//Question Update/Edit
 export const  validateQuestionInputEdit=(info)=>{
 
     const errors= {}
@@ -344,6 +343,11 @@ export const  validateQuestionInputEdit=(info)=>{
     return errors;
 }
 
+
+//SUBJECT SCREEN
+
+
+//Subject Create
 export const validateSubjectInput=(info)=>{
     const errors = {};
     if(info && Object.keys(info) > -1){
@@ -392,7 +396,7 @@ export const validateSubjectInput=(info)=>{
     return errors;
 }
 
-
+//Subject Update/Edit
 export const  validateSubjectInputEdit=(info)=>{
     const errors = {};
     if(info){
@@ -446,6 +450,9 @@ export const  validateSubjectInputEdit=(info)=>{
     return errors;
 }
 
+//TEST SCREEN
+
+//Test Create
 export const validateTestInput=(info)=>{
 
     const errors = {}
@@ -530,7 +537,7 @@ export const validateTestInput=(info)=>{
 
     return errors;
 }
-
+//Test Update/Edit
 export const  validateTestInputEdit=(info)=>{
 
     const errors = {}
