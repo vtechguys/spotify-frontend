@@ -6,7 +6,7 @@ const Input = (props) => {
     let {elementType,elementConfig,
         label,
         errors,touched,...inputProps}=props;
-       if(errors[elementConfig.name] && touched[elementConfig.name])
+       if(elementConfig && errors[elementConfig.name] && touched[elementConfig.name])
        {
            classesToApply.push('form__element--input--error')
        }
@@ -29,7 +29,7 @@ const Input = (props) => {
             <label className="form__element--label">{label}</label>
             {inputElement}
             <div className="form__element--error">
-            {errors[elementConfig.name] 
+            {errors && errors[elementConfig.name] 
                 && touched[elementConfig.name] 
                 && errors[elementConfig.name]}
             </div>

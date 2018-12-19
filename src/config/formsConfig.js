@@ -67,19 +67,6 @@ export const loginForm= {
     }
 }
 
-export const loginFormValidations=(values)=>{
-
-let errors={};
-if(!values.email)
-{
-    errors.email="email is required";
-}
-if(!values.password)
-{
-    errors.password="password is required";
-}
-return errors;
-}
 
 export const signInFormValidations=(values)=>{
 let errors={};

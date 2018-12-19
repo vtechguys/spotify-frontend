@@ -55,15 +55,15 @@ class App extends Component {
     return (
       <BrowserRouter>
 
-            {/*<Layout 
+            <Layout 
             appName={config.APP_NAME}
             appLogo = {config.APP_LOGO} 
             companyInfo={config.COMPANY_INFO} 
             companyLogo={config.COMPANY_LOGO} 
             companyName={config.COMPANY_NAME}
-            ></Layout>*/}
+            ></Layout>
           
-           <Auth/>
+           
       </BrowserRouter>
   );
   }
