@@ -25,13 +25,16 @@ export const reactUrls = {
 
     ROOT:'/',
 
-
+    //AUTH
     AUTH:'/auth',
     SIGN_IN:'/login',
     SIGN_UP:'/register',
     FORGOT_PASSWORD:'/forgot-password',
     CHANGE_PASSWORD_FORM:'/change-password',
 
+    CHANGE_USERNAME_FORM:'/change-username',
+
+    //PROGRAM
     PROGRAM:'/programs',
     CREATE_PROGRAM:'/create',// /:id
     UPDATE_PROGRAM:'/update',// /:id
@@ -39,9 +42,11 @@ export const reactUrls = {
     LOAD_PROGRAM:'/load',// loads all program
     LOAD_PROGRAM_BY_ID:'/program',//programs/program/:id
     LOAD_ALL_PROGRAM:'/load',
-    //TESTS
+
     TEST:'/test',
 
+ //PAGE_NOT_FOUND
+    PAGE_NOT_FOUND:'/page-not-found-404'
 
 
 }

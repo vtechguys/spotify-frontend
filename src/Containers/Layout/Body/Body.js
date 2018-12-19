@@ -38,7 +38,13 @@ render while routing is occuring*/}
                 <Switch>
                     <Route 
                         path={reactUrls.AUTH} //'/auth'
-                        render={(props)=><Auth {...authProps} {...props}/>}
+
+                        render={
+                            (props)=><Auth 
+                                {...authProps} 
+                                {...props}
+                            />
+                        }
                         
                     />
                     <Route 

@@ -15,6 +15,7 @@ import validate from '../../utils/validate';
 import Spinner  from '../../Components/UI/Spinner/Spinner'
 import { createProgramAsync } from '../../store/actions';
 
+
 function looselyMatch(array,string){
 	var indexOfMatch = -1;
 	array.forEach((elem,index)=>{
@@ -55,7 +56,7 @@ class Program extends Component{
         },
         
 
-        loadPrograms:[],//List of program obj
+       loadPrograms:[],//List of program obj
         selectedProgram:null//should be used for update and loadById
 
     }
@@ -82,7 +83,6 @@ class Program extends Component{
 
 
     }
-
     createProgram=(program)=>{
         //seting state of program
         this.setState({
@@ -100,9 +100,6 @@ class Program extends Component{
         //setting api call
         this.props.createProgram( program );
     }
-    // createProgram=(program)=>{
-    //     console.log(program);
-    // }
     render(){
        let programJSX = null;
         const createProgramProps = {
