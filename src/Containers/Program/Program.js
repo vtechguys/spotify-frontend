@@ -13,8 +13,9 @@ import { reactUrls } from '../../config/registeredUrls';
 import validate from '../../utils/validate';
 
 import Spinner  from '../../Components/UI/Spinner/Spinner'
-import { createProgramAsync } from '../../store/actions';
-
+import { createProgramAsync,loadProgramAsync } from '../../store/actions';
+ 
+import config from '../../config';
 
 function looselyMatch(array,string){
 	var indexOfMatch = -1;
@@ -77,7 +78,21 @@ class Program extends Component{
         });
     }
 
-    fetchAllPrograms=()=>{
+    fetchAllPrograms=(count=config.DEFAULT_PROGRAM_LOAD_COUNT,limit=config.DEFAULT_PROGRAM_LOAD_LIMIT)=>{
+        //count and limit for pagination
+        const countLimit = {
+            count:count,
+            limit:limit
+        };
+        console.log("THis called load programs")
+        if(count>=0 && limit>0){
+            
+           this.props.loadProgram(countLimit);
+
+        }
+        else{
+            //cannot migrate to irrelavant page//pagination
+        }
 
 
 
@@ -107,8 +122,9 @@ class Program extends Component{
             create:this.createProgram
         }
        const loadAllProgramProps = {
-            fetchAllPrograms: this.fetchAllPrograms,
-}
+        loadListItems: this.fetchAllPrograms,
+        programs:this.props.programs
+        }
       if(looselyMatch(this.state.allowedURLS,this.props.location.pathname)>-1){
             if( this.props.app.isLogedIn ){
                 console.log( this.props.auth.role,this.props.location.pathname)
@@ -118,7 +134,7 @@ class Program extends Component{
                         programJSX = (
                             <Route 
                                     path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
-                                    render={(props)=><LoadPrograms {...loadAllProgramProps} {...props}/>}
+                                    render={(props)=><LoadPrograms {...loadAllProgramProps} {...props} />}
                             />
                         );
                     }
@@ -153,8 +169,8 @@ class Program extends Component{
                         programJSX = (
                             <Route 
                                 path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
-                                render={ ()=><h1>Load all programs by default</h1> }
-                            />
+                                render={(props)=><LoadPrograms {...loadAllProgramProps} {...props} programs={this.props.programs}/>}
+                                />
                         )
                     }
                 }
@@ -164,7 +180,7 @@ class Program extends Component{
                         programJSX = (
                             <Route 
                                     path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
-                                    render={ ()=><h1>Load all programs by default</h1> }
+                                    render={(props)=><LoadPrograms {...loadAllProgramProps} {...props} programs={this.state.programs}/>}
                             />
                         );
                     }
@@ -192,8 +208,8 @@ class Program extends Component{
                 programJSX = (
                     <Route 
                             path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
-                            render={ ()=><h1>Load all programs by default</h1> }
-                    />
+                            render={(props)=><LoadPrograms {...loadAllProgramProps} {...props} programs={this.props.programs}/>}
+                            />
                 );
             }
         }
@@ -202,9 +218,9 @@ class Program extends Component{
             console.log("?????")
             programJSX = (
                 <Route 
-                        path={ reactUrls.PROGRAM + reactUrls.LOAD_ALL_PROGRAM  } 
-                        render={ ()=><h1>Load all programs by default</h1> }
-                />
+                        path={ reactUrls.PAGE_NOT_FOUND  } 
+                        render={()=><h1>PAGE_NOT_FOUND</h1> }
+                        />
             );
         }
        return (
@@ -233,16 +249,19 @@ class Program extends Component{
 
 
 //Body is connected to store and always pass app and auth sslice of store
-const mapStateToProps = (state) =>{
+const mapStateToProps = (store) =>{
     return {
-        
+        programs:store.programs,
+        program:store.program,
+        selectedProgram:store.selectedProgram
     }
 }
 const mapDispatchToProps = (dispatch)=>{
     return {
         // loadProgramAsync:()=>dispatch( loadAllPrograms ),
         //toggleProgram:dispatch( ),
-        createProgram:( program )=>dispatch( createProgramAsync(program) )
+        createProgram:( program )=>dispatch( createProgramAsync(program) ),
+        loadProgram:( countLimit ) => dispatch( loadProgramAsync(countLimit) ),
     }
 }
-export default connect(null,mapDispatchToProps)(Program);
+export default connect(mapStateToProps,mapDispatchToProps)(Program);

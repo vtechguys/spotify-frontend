@@ -23,7 +23,7 @@ const initialState = {
         "createdAt":null,
     },
     "selectedProgram":null,
-    "programs":null,
+    "programs":[],
 
 }
 

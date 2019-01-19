@@ -53,4 +53,46 @@ export const createProgramAsync = (program) =>{
         })
     }
 }
+const loadProgramSync = (response)=>{
+
+    let data = response.data || null;
+    let errors = response.errors || null;
+    let obj = {};
+    obj["type"] = LOAD_PROGRAMS;
+    if(data){
+        obj["programs"] = data.programs;
+    }
+    else if(errors){
+        obj["errors"] = errors;
+    }
+    else{
+        console.log("UNEXCPECTED SERVER RESPONSE");
+    }
+    return obj;
+}
+export const loadProgramAsync = (data) =>{
+    return dispatch =>{
+        console.log("API CALL TO LOAD PROGRAM ASYNC",apiUrls.LOAD_ALL_PROGRAM,data);
+        API
+        .post(apiUrls.LOAD_ALL_PROGRAM,data)
+        .then(success=>{
+            let response = success.data;
+            if(response.code===200 && response.success===true){
+                dispatch( resetMessageState(response.message) );
+                dispatch( loadProgramSync(response) );
+
+
+            }
+            else{
+                 dispatch( resetMessageState(response.message) );
+
+                 dispatch( loadProgramSync(response) );
+            }
+        })
+        .catch(error=>{
+            console.log(`Error occured while API call to ${apiUrls.LOAD_ALL_PROGRAM}.Error is ${error}`);
+            dispatch( resetMessageState() );
+        })
+    }
+}
 //console.log("");
